@@ -1,39 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Oncopeu</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        
-        /* Estiliza a caixa de código */
-        pre {
-            background-color: #f4f4f4; /* Fundo cinza claro */
-            border: 1px solid #ccc;  /* Borda cinza */
-            padding: 10px;           /* Espaçamento interno */
-            border-radius: 4px;      /* Bordas arredondadas */
-            overflow-x: auto;      /* Adiciona rolagem se o código for muito largo */
-        }
-        
-        /* Define a fonte do código como monoespaçada (todas letras com mesma largura) */
-        code {
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-<body>
 
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+      }
+
+      /* Estiliza a caixa de código */
+      pre {
+        background-color: #f4f4f4; /* Fundo cinza claro */
+        border: 1px solid #ccc; /* Borda cinza */
+        padding: 10px; /* Espaçamento interno */
+        border-radius: 4px; /* Bordas arredondadas */
+        overflow-x: auto; /* Adiciona rolagem se o código for muito largo */
+      }
+
+      /* Define a fonte do código como monoespaçada (todas letras com mesma largura) */
+      code {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
     <h2>Comandos de ConTeXt (Para A7 em A4)</h2>
 
     <p>https://context-on-web.eu/</p>
-    
+
     <pre><code>
 \setuppapersize[A7][A4,landscape]
 \setuparranging[1*8]
@@ -43,6 +42,26 @@
 \starttext
 
 \stoptext
+    </code></pre>
+
+    <h2>Modelo Exame Físico</h2>
+
+    <pre><code>
+SINAIS VITAIS:Pressão arterial (PA): 
+Frequência cardíaca (FC): 
+Frequência respiratória (FR): 
+Temperatura (T): 
+Saturação periférica de oxigênio (SpO2): 
+Glicemia capilar (GC): 
+Dor (0–10): 
+- Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
+- Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
+- Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
+- Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
+- Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
+- Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
+- Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
+- Outros:
     </code></pre>
 
     <h2>Modelo Evo ENF</h2>
@@ -113,3 +132,5 @@ Reavaliar diariamente evolução clínica e laboratorial.
     <pre><code>
 git add . && git commit -m ''atualizando'' && git push origin main
     </code></pre>
+  </body>
+</html>
