@@ -232,5 +232,11 @@ Reavaliar diariamente evolução clínica e laboratorial.
     <pre><code>
 git add . && git commit -m ''atualizando'' && git push origin main
     </code></pre>
+
+    <h2>Comando LS</h2>
+
+    <pre><code>
+ls -1 post-*.html | jq -R -s 'split("\n")[:-1]' > posts.json
+    </code></pre>
   </body>
 </html>
