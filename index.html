@@ -34,209 +34,234 @@
     <p>https://context-on-web.eu/</p>
 
     <pre><code>
-\setuppapersize[A7][A4,landscape]
-\setuparranging[1*8]
-\setuppagenumbering[location=]
-\setupbodyfont[9pt]
+      \setuppapersize[A7][A4,landscape]
+      \setuparranging[1*8]
+      \setuppagenumbering[location=]
+      \setupbodyfont[9pt]
 
-\starttext
+      \starttext
 
-\stoptext
+      \stoptext
+    </code></pre>
+
+    <h2>Comandos de ConTeXt (Para A6 em A4)</h2>
+
+    <p>https://context-on-web.eu/</p>
+
+    <pre><code>
+      \setuppapersize[A6][A4]
+      \setuparranging[1*4]      % mantém 4-up na mesma face
+      \setuppagenumbering[location=]
+      \setupbodyfont[15pt]
+
+      \setuplayout
+      [backspace=10mm,
+      topspace=10mm,
+      width=85mm,
+      height=128mm]
+
+      \starttext
+      Primeira página A6.\page
+      Segunda página A6.\page
+      Terceira página A6.\page
+      Quarta página A6.
+
+      \stoptext
     </code></pre>
 
     <h2>Modelo Exame Físico</h2>
 
     <pre><code>
-SINAIS VITAIS:Pressão arterial (PA): 
-Frequência cardíaca (FC): 
-Frequência respiratória (FR): 
-Temperatura (T): 
-Saturação periférica de oxigênio (SpO2): 
-Glicemia capilar (GC): 
-Dor (0–10): 
-- Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
-- Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
-- Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
-- Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
-- Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
-- Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
-- Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
-- Outros:
+      SINAIS VITAIS:Pressão arterial (PA): 
+      Frequência cardíaca (FC): 
+      Frequência respiratória (FR): 
+      Temperatura (T): 
+      Saturação periférica de oxigênio (SpO2): 
+      Glicemia capilar (GC): 
+      Dor (0–10): 
+      - Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
+      - Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
+      - Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
+      - Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
+      - Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
+      - Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
+      - Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
+      - Outros:
     </code></pre>
-    
-        <h2>Modelo ADM</h2>
+
+    <h2>Modelo ADM</h2>
 
     <pre><code>
-======================================================================
-                            FOLHA DE ADMISSÃO
-======================================================================
-HOSPITAL/UNIDADE:    SETOR: 
-LEITO:    PRONTUÁRIO Nº:    DATA:    HORA: 
-Admissão hospitalar: 
-Tempo de internação (hospital): 
-Admissão no setor: 
-Tempo de internação (setor): 
+      ======================================================================
+      FOLHA DE ADMISSÃO
+      ======================================================================
+      HOSPITAL/UNIDADE:    SETOR: 
+      LEITO:    PRONTUÁRIO Nº:    DATA:    HORA: 
+      Admissão hospitalar: 
+      Tempo de internação (hospital): 
+      Admissão no setor: 
+      Tempo de internação (setor): 
 
------------------------------------ IDENTIFICAÇÃO --------------------------------
-Nome completo: 
-Nome social (se aplicável): 
-Data de nascimento:   Idade:   Sexo biológico: 
-Documento de identificação: RG   CPF 
-Cartão do SUS: 
-Endereço: 
-Cidade:   UF:   CEP: 
-Telefone(s):   E-mail: 
-Responsável legal (se aplicável):   Parentesco: 
-Contato de emergência:   Telefone: 
-Convênio/Plano:   Nº carteirinha:   Validade: 
-Preferência religiosa/espiritual: 
+      ----------------------------------- IDENTIFICAÇÃO --------------------------------
+      Nome completo: 
+      Nome social (se aplicável): 
+      Data de nascimento:   Idade:   Sexo biológico: 
+      Documento de identificação: RG   CPF 
+      Cartão do SUS: 
+      Endereço: 
+      Cidade:   UF:   CEP: 
+      Telefone(s):   E-mail: 
+      Responsável legal (se aplicável):   Parentesco: 
+      Contato de emergência:   Telefone: 
+      Convênio/Plano:   Nº carteirinha:   Validade: 
+      Preferência religiosa/espiritual: 
 
----------------------------------- LISTA DE PROBLEMAS--------------------------------
-P0 (MOTIVO DA INTERNAÇÃO)
-
-
----------------------------------- ANAMNESE MÉDICA ------------------------------
-Queixa principal e duração do quadro:
-
-História da doença atual:
-
-História patológica pregressa (doenças, cirurgias, internações, alergias):
-
-História fisiológica (hábitos, vacinas, sono, alimentação, atividade física):
-
-Uso atual de medicamentos (dose/horário) e adesão:
-
-Alergias (medicamentosas, alimentares, outras) e reações:
-
-História obstétrica (se aplicável: Gesta/Para/Aborto; partos; DUM/DUA):
-
-História familiar (doenças hereditárias, cardiometabólicas, câncer, etc.):
-
-História social (profissão, exposição ocupacional, etilismo, tabagismo, outras substâncias, condições domiciliares/apoio):
+      ---------------------------------- LISTA DE PROBLEMAS--------------------------------
+      P0 (MOTIVO DA INTERNAÇÃO)
 
 
-------------------------- REVISÃO DE SISTEMAS E APARELHOS -----------------------
-[ ] Constitucional: Sem febre, sem perda ponderal não-intencional, sem fadiga importante.
-[ ] Pele/Anexos: Sem prurido, lesões ativas ou queda capilar anormal.
-[ ] Cabeça/Pescoço: Sem cefaleia, disfagia ou odinofagia.
-[ ] Olhos: Sem dor ocular, baixa acuidade ou fotofobia.
-[ ] Ouvidos/Nariz/Garganta: Sem otalgia, hipoacusia, rinorreia ou rouquidão.
-[ ] Respiratório: Sem dispneia, tosse ou sibilância.
-[ ] Cardiovascular: Sem dor torácica, palpitações ou síncope.
-[ ] Gastrointestinal: Sem náuseas, vômitos, diarreia, constipação ou dor abdominal.
-[ ] Geniturinário: Sem disúria, polaciúria, urgência ou hematúria.
-[ ] Músculo-esquelético: Sem artralgias importantes, edema ou fraqueza nova.
-[ ] Neurológico: Sem déficits focais, convulsões, parestesias ou tontura incapacitante.
-[ ] Psiquiátrico: Sem humor deprimido persistente, ansiedade incapacitante ou ideação suicida.
-[ ] Endócrino/Hematológico/Imunológico: Sem poliúria/polidipsia, sangramentos anormais ou infecções recorrentes.
+      ---------------------------------- ANAMNESE MÉDICA ------------------------------
+      Queixa principal e duração do quadro:
 
------------------------------------ EXAME FÍSICO --------------------------------
-SINAIS VITAIS:Pressão arterial (PA): 
-Frequência cardíaca (FC): 
-Frequência respiratória (FR): 
-Temperatura (T): 
-Saturação periférica de oxigênio (SpO2): 
-Glicemia capilar (GC): 
-Dor (0–10): 
-- Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
-- Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
-- Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
-- Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
-- Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
-- Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
-- Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
-- Outros: 
+      História da doença atual:
 
------------------------------- HIPÓTESES DIAGNÓSTICAS ---------------------------
-SINDRÔMICA: 
-ANATÔMICA/TOPOGRÁFICA: 
-ETIOLÓGICA: 
+      História patológica pregressa (doenças, cirurgias, internações, alergias):
 
--------------------------------------- CONDUTAS ---------------------------------
-Exames complementares (livre):
+      História fisiológica (hábitos, vacinas, sono, alimentação, atividade física):
 
-Pareceres interconsultas (especialidade/justificativa):
+      Uso atual de medicamentos (dose/horário) e adesão:
 
-Terapêutica/Plano (medicações, hidratação, O2, analgesia, procedimentos, dieta):
+      Alergias (medicamentosas, alimentares, outras) e reações:
 
-Planejamento (observação/internação/alta; metas e reavaliação):
+      História obstétrica (se aplicável: Gesta/Para/Aborto; partos; DUM/DUA):
 
-Impressão clínica: 
+      História familiar (doenças hereditárias, cardiometabólicas, câncer, etc.):
+
+      História social (profissão, exposição ocupacional, etilismo, tabagismo, outras substâncias, condições domiciliares/apoio):
+
+
+      ------------------------- REVISÃO DE SISTEMAS E APARELHOS -----------------------
+      [ ] Constitucional: Sem febre, sem perda ponderal não-intencional, sem fadiga importante.
+      [ ] Pele/Anexos: Sem prurido, lesões ativas ou queda capilar anormal.
+      [ ] Cabeça/Pescoço: Sem cefaleia, disfagia ou odinofagia.
+      [ ] Olhos: Sem dor ocular, baixa acuidade ou fotofobia.
+      [ ] Ouvidos/Nariz/Garganta: Sem otalgia, hipoacusia, rinorreia ou rouquidão.
+      [ ] Respiratório: Sem dispneia, tosse ou sibilância.
+      [ ] Cardiovascular: Sem dor torácica, palpitações ou síncope.
+      [ ] Gastrointestinal: Sem náuseas, vômitos, diarreia, constipação ou dor abdominal.
+      [ ] Geniturinário: Sem disúria, polaciúria, urgência ou hematúria.
+      [ ] Músculo-esquelético: Sem artralgias importantes, edema ou fraqueza nova.
+      [ ] Neurológico: Sem déficits focais, convulsões, parestesias ou tontura incapacitante.
+      [ ] Psiquiátrico: Sem humor deprimido persistente, ansiedade incapacitante ou ideação suicida.
+      [ ] Endócrino/Hematológico/Imunológico: Sem poliúria/polidipsia, sangramentos anormais ou infecções recorrentes.
+
+      ----------------------------------- EXAME FÍSICO --------------------------------
+      SINAIS VITAIS:Pressão arterial (PA): 
+      Frequência cardíaca (FC): 
+      Frequência respiratória (FR): 
+      Temperatura (T): 
+      Saturação periférica de oxigênio (SpO2): 
+      Glicemia capilar (GC): 
+      Dor (0–10): 
+      - Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
+      - Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
+      - Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
+      - Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
+      - Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
+      - Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
+      - Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
+      - Outros: 
+
+      ------------------------------ HIPÓTESES DIAGNÓSTICAS ---------------------------
+      SINDRÔMICA: 
+      ANATÔMICA/TOPOGRÁFICA: 
+      ETIOLÓGICA: 
+
+      -------------------------------------- CONDUTAS ---------------------------------
+      Exames complementares (livre):
+
+      Pareceres interconsultas (especialidade/justificativa):
+
+      Terapêutica/Plano (medicações, hidratação, O2, analgesia, procedimentos, dieta):
+
+      Planejamento (observação/internação/alta; metas e reavaliação):
+
+      Impressão clínica: 
     </code></pre>
 
     <h2>Modelo Evo ENF</h2>
 
     <pre><code>
 
-Meu modelo narrativo padronizado de evolução médica em enfermaria
+      Meu modelo narrativo padronizado de evolução médica em enfermaria
 
----Informações Gerais---
+      ---Informações Gerais---
 
-Data e Hora:
+      Data e Hora:
 
-Identificação: [nome completo], [idade], [Masculino/Feminino], [leito], P0: [motivo da internação].
+      Identificação: [nome completo], [idade], [Masculino/Feminino], [leito], P0: [motivo da internação].
 
-Alergias: [destacar, se houver].
+      Alergias: [destacar, se houver].
 
----Lista de Problemas---
+      ---Lista de Problemas---
 
-P1. [problema // data de inicio]
-P2. [problema // data de inicio]
-P3. [problema // data de inicio]
-P4. [problema // data de inicio]
-P5. [problema // data de inicio]
+      P1. [problema // data de inicio]
+      P2. [problema // data de inicio]
+      P3. [problema // data de inicio]
+      P4. [problema // data de inicio]
+      P5. [problema // data de inicio]
 
----Evolução---
+      ---Evolução---
 
-Paciente encontra-se internado há [X] dias por [motivo da internação]. Hoje apresenta [queixas principais do dia/ausência de queixas], conforme relato [próprio/acompanhante]. Refere [melhora/piora/manutenção/ausência] de sintomas como [exemplo: dor, dispneia, febre], sem intercorrências significativas desde a última avaliação.
+      Paciente encontra-se internado há [X] dias por [motivo da internação]. Hoje apresenta [queixas principais do dia/ausência de queixas], conforme relato [próprio/acompanhante]. Refere [melhora/piora/manutenção/ausência] de sintomas como [exemplo: dor, dispneia, febre], sem intercorrências significativas desde a última avaliação.
 
----Ao exame---
+      ---Ao exame---
 
-Paciente encontrado [dormindo/acordado], em [bom/regular/mau] estado geral, [consciente/inconsciente/sedado], [orientado/desorientado] em tempo e espaço. 
+      Paciente encontrado [dormindo/acordado], em [bom/regular/mau] estado geral, [consciente/inconsciente/sedado], [orientado/desorientado] em tempo e espaço. 
 
-SSVV: PA    mmHg | FC bpm | FR  irpm | Temp  °C | SpO2 % | Diurese  mL/24h
+      SSVV: PA    mmHg | FC bpm | FR  irpm | Temp  °C | SpO2 % | Diurese  mL/24h
 
-Ausculta pulmonar MV [presente/ausente/abolido], [sem/com] RA, [roncos/sibilos/estertores]. 
-Ausculta cardíaca em ritmo [regular/irregular], bulhas [normofonéticas/B3/B4/extrassístoles], [sem/com] sopros [se sopros, descrever localização e intensidade]. 
-Abdome [flácido/doloroso/hipertimpânico/ascítico], RHA [presentes/hipoativos/ausentes], [sem/com] visceromegalias. 
-Extremidades [sem/com] edemas, pulsos [palpáveis/diminuídos/ausentes], [sem/com] cianose. 
-Feridas/curativos [limpos/secos/íntegros/hip[48;25;80;500;720terêmicos/com secreção/deiscência/necrose].
+      Ausculta pulmonar MV [presente/ausente/abolido], [sem/com] RA, [roncos/sibilos/estertores]. 
+      Ausculta cardíaca em ritmo [regular/irregular], bulhas [normofonéticas/B3/B4/extrassístoles], [sem/com] sopros [se sopros, descrever localização e intensidade]. 
+      Abdome [flácido/doloroso/hipertimpânico/ascítico], RHA [presentes/hipoativos/ausentes], [sem/com] visceromegalias. 
+      Extremidades [sem/com] edemas, pulsos [palpáveis/diminuídos/ausentes], [sem/com] cianose. 
+      Feridas/curativos [limpos/secos/íntegros/hip[48;25;80;500;720terêmicos/com secreção/deiscência/necrose].
 
----Dados Complementares---
+      ---Dados Complementares---
 
-Balanço hídrico nas últimas 24h: [entradas: volume oral/venoso; saídas: diurese, drenos, perdas insensíveis]. 
+      Balanço hídrico nas últimas 24h: [entradas: volume oral/venoso; saídas: diurese, drenos, perdas insensíveis]. 
 
-Evolução laboratorial/imagem: [registrar exames disponíveis, resultados significativos]. 
+      Evolução laboratorial/imagem: [registrar exames disponíveis, resultados significativos]. 
 
-Enfermagem relata [resumo de intercorrências e observações relevantes].
+      Enfermagem relata [resumo de intercorrências e observações relevantes].
 
-Avaliação clínica atual: paciente com diagnóstico principal de [especificar], em evolução [favorável/estacionária/desfavorável], mantendo [melhora parcial, complicações, estabilidade]. 
+      Avaliação clínica atual: paciente com diagnóstico principal de [especificar], em evolução [favorável/estacionária/desfavorável], mantendo [melhora parcial, complicações, estabilidade]. 
 
-Em uso de [Medicamento], iniciado em [data], está no dia [X/Y] do uso. Sem sinais de reações adversas conhecidas.
+      Em uso de [Medicamento], iniciado em [data], está no dia [X/Y] do uso. Sem sinais de reações adversas conhecidas.
 
----Conduta/Plano---
+      ---Conduta/Plano---
 
-Manter [e/ou] Adicionar [medicações, doses, vias, intervalos].
+      Manter [e/ou] Adicionar [medicações, doses, vias, intervalos].
 
-Realizar [novos exames complementares/pareceres de especialidades].
+      Realizar [novos exames complementares/pareceres de especialidades].
 
-Ajustar [hidratação, analgesia, dieta, fisioterapia, cuidados gerais].
+      Ajustar [hidratação, analgesia, dieta, fisioterapia, cuidados gerais].
 
-Programar [conduta futura, alta, procedimento, transferência].
+      Programar [conduta futura, alta, procedimento, transferência].
 
-Reavaliar diariamente evolução clínica e laboratorial.
+      Reavaliar diariamente evolução clínica e laboratorial.
     </code></pre>
 
     <h2>Comando GIT</h2>
 
     <pre><code>
-git add . && git commit -m ''atualizando'' && git push origin main
+      git add . && git commit -m ''atualizando'' && git push origin main
     </code></pre>
 
     <h2>Comando LS</h2>
 
     <pre><code>
-ls -1 post-*.html | jq -R -s 'split("\n")[:-1]' > posts.json
+      ls -1 post-*.html | jq -R -s 'split("\n")[:-1]' > posts.json
     </code></pre>
   </body>
 </html>
