@@ -1,267 +1,516 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oncopeu</title>
-
+    <meta charset="utf-8" />
+    <title>Hub Split — dois sites lado a lado (P&B)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Dois sites diferentes, simultaneamente, em painéis redimensionáveis. Preto & branco. WCAG 2.2 A."
+    />
     <style>
+      /* Tema preto & branco de alto contraste */
+      :root {
+        --bg: #ffffff; /* branco */
+        --fg: #000000; /* preto */
+        --muted: #2b2b2b; /* cinza escuro para textos secundários */
+        --border: #000000;
+        --focus: #000000; /* foco preto espesso (B&W puro) */
+        --gap: 0.75rem;
+        --panel-min: 220px; /* largura/altura mínima dos painéis */
+        --toolbar-h: 48px; /* altura das toolbars */
+      }
+      @media (prefers-color-scheme: dark) {
+        /* Mesmo P&B, invertendo: fundo preto, texto branco */
+        :root {
+          --bg: #000000;
+          --fg: #ffffff;
+          --muted: #e6e6e6;
+          --border: #ffffff;
+          --focus: #ffffff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 20px;
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          500 16px/1.55 ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          Noto Sans;
       }
 
-      /* Estiliza a caixa de código */
-      pre {
-        background-color: #f4f4f4; /* Fundo cinza claro */
-        border: 1px solid #ccc; /* Borda cinza */
-        padding: 10px; /* Espaçamento interno */
-        border-radius: 4px; /* Bordas arredondadas */
-        overflow-x: auto; /* Adiciona rolagem se o código for muito largo */
+      /* Foco bem visível e uniforme */
+      :where(a, button, [tabindex], input, select, textarea):focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 2px;
       }
 
-      /* Define a fonte do código como monoespaçada (todas letras com mesma largura) */
-      code {
-        font-family: "Courier New", Courier, monospace;
-        font-size: 0.9em;
+      /* Skip link para acessibilidade */
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        padding: 0.5rem 0.75rem;
+        background: var(--fg);
+        color: var(--bg);
+      }
+      .skip-link:focus {
+        left: 0.75rem;
+        top: 0.75rem;
+        z-index: 9999;
+      }
+
+      /* Cabeçalho minimalista (mas com controles úteis) */
+      header {
+        height: var(--toolbar-h);
+        border-bottom: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: var(--gap);
+        padding: 0 0.75rem;
+      }
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .spacer {
+        flex: 1;
+      }
+      .btn {
+        appearance: none;
+        background: transparent;
+        color: var(--fg);
+        border: 2px solid var(--border);
+        border-radius: 6px;
+        padding: 0.35rem 0.6rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--fg);
+        color: var(--bg);
+      }
+      .btn[aria-pressed="true"] {
+        background: var(--fg);
+        color: var(--bg);
+      }
+
+      main {
+        height: calc(100vh - var(--toolbar-h));
+      }
+
+      /* Área de split: duas direções possíveis (vertical ou horizontal) */
+      .split {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        gap: 0; /* sem bordas internas para look P&B limpo */
+      }
+      /* Layout vertical (painéis lado a lado) */
+      .split[data-orientation="vertical"] {
+        grid-template-columns: 1fr 8px 1fr;
+        grid-template-rows: 100%;
+      }
+      /* Layout horizontal (painéis um sobre o outro) */
+      .split[data-orientation="horizontal"] {
+        grid-template-rows: 1fr 8px 1fr;
+        grid-template-columns: 100%;
+      }
+
+      /* Painéis */
+      .panel {
+        min-width: var(--panel-min);
+        min-height: var(--panel-min);
+        display: grid;
+        grid-template-rows: var(--toolbar-h) 1fr;
+        border: 2px solid var(--border);
+      }
+      .panel header {
+        height: var(--toolbar-h);
+        border-bottom: 2px solid var(--border);
+        padding: 0 0.5rem;
+        gap: 0.5rem;
+      }
+      .panel-title {
+        font-weight: 800;
+      }
+      .panel .btn {
+        padding: 0.25rem 0.5rem;
+      }
+
+      /* Iframes (conteúdo intacto) */
+      .frame {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: var(--bg);
+      }
+
+      /* Divisor (grip) grande e acessível */
+      .divider {
+        background: var(--fg);
+        cursor: col-resize;
+      }
+      .split[data-orientation="horizontal"] .divider {
+        cursor: row-resize;
+      }
+
+      /* Handle visual no divisor (pontos) — ainda B&W */
+      .divider::before {
+        content: "";
+        display: block;
+        margin: auto;
+        width: 28px;
+        height: 8px;
+        background: repeating-linear-gradient(
+          to right,
+          var(--bg) 0,
+          var(--bg) 3px,
+          var(--fg) 3px,
+          var(--fg) 6px
+        );
+      }
+      .split[data-orientation="horizontal"] .divider::before {
+        width: 8px;
+        height: 28px;
+        background: repeating-linear-gradient(
+          to bottom,
+          var(--bg) 0,
+          var(--bg) 3px,
+          var(--fg) 3px,
+          var(--fg) 6px
+        );
+      }
+      .divider:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 0;
+      }
+
+      /* Texto auxiliar */
+      .help {
+        font-size: 0.92rem;
+        color: var(--muted);
+        padding: 0.25rem 0.5rem;
+        border-left: 2px solid var(--border);
+        margin-left: 0.5rem;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+          transition: none !important;
+          animation: none !important;
+        }
       }
     </style>
   </head>
   <body>
-    <h2>Comandos de ConTeXt (Para A7 em A4)</h2>
-
-    <p>https://context-on-web.eu/</p>
-
-    <pre><code>
-      \setuppapersize[A7][A4,landscape]
-      \setuparranging[1*8]
-      \setuppagenumbering[location=]
-      \setupbodyfont[9pt]
-
-      \starttext
-
-      \stoptext
-    </code></pre>
-
-    <h2>Comandos de ConTeXt (Para A6 em A4)</h2>
-
-    <p>https://context-on-web.eu/</p>
-
-    <pre><code>
-      \setuppapersize[A6][A4]
-      \setuparranging[1*4]      % mantém 4-up na mesma face
-      \setuppagenumbering[location=]
-      \setupbodyfont[15pt]
-
-      \setuplayout
-      [backspace=10mm,
-      topspace=10mm,
-      width=85mm,
-      height=128mm]
-
-      \starttext
-      Primeira página A6.\page
-      Segunda página A6.\page
-      Terceira página A6.\page
-      Quarta página A6.
-
-      \stoptext
-    </code></pre>
-
-    <h2>Modelo Exame Físico</h2>
-
-    <pre><code>
-      SINAIS VITAIS:Pressão arterial (PA): 
-      Frequência cardíaca (FC): 
-      Frequência respiratória (FR): 
-      Temperatura (T): 
-      Saturação periférica de oxigênio (SpO2): 
-      Glicemia capilar (GC): 
-      Dor (0–10): 
-      - Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
-      - Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
-      - Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
-      - Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
-      - Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
-      - Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
-      - Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
-      - Outros:
-    </code></pre>
-
-    <h2>Modelo ADM</h2>
-
-    <pre><code>
-      ======================================================================
-      FOLHA DE ADMISSÃO
-      ======================================================================
-      HOSPITAL/UNIDADE:    SETOR: 
-      LEITO:    PRONTUÁRIO Nº:    DATA:    HORA: 
-      Admissão hospitalar: 
-      Tempo de internação (hospital): 
-      Admissão no setor: 
-      Tempo de internação (setor): 
-
-      ----------------------------------- IDENTIFICAÇÃO --------------------------------
-      Nome completo: 
-      Nome social (se aplicável): 
-      Data de nascimento:   Idade:   Sexo biológico: 
-      Documento de identificação: RG   CPF 
-      Cartão do SUS: 
-      Endereço: 
-      Cidade:   UF:   CEP: 
-      Telefone(s):   E-mail: 
-      Responsável legal (se aplicável):   Parentesco: 
-      Contato de emergência:   Telefone: 
-      Convênio/Plano:   Nº carteirinha:   Validade: 
-      Preferência religiosa/espiritual: 
-
-      ---------------------------------- LISTA DE PROBLEMAS--------------------------------
-      P0 (MOTIVO DA INTERNAÇÃO)
-
-
-      ---------------------------------- ANAMNESE MÉDICA ------------------------------
-      Queixa principal e duração do quadro:
-
-      História da doença atual:
-
-      História patológica pregressa (doenças, cirurgias, internações, alergias):
-
-      História fisiológica (hábitos, vacinas, sono, alimentação, atividade física):
-
-      Uso atual de medicamentos (dose/horário) e adesão:
-
-      Alergias (medicamentosas, alimentares, outras) e reações:
-
-      História obstétrica (se aplicável: Gesta/Para/Aborto; partos; DUM/DUA):
-
-      História familiar (doenças hereditárias, cardiometabólicas, câncer, etc.):
-
-      História social (profissão, exposição ocupacional, etilismo, tabagismo, outras substâncias, condições domiciliares/apoio):
-
-
-      ------------------------- REVISÃO DE SISTEMAS E APARELHOS -----------------------
-      [ ] Constitucional: Sem febre, sem perda ponderal não-intencional, sem fadiga importante.
-      [ ] Pele/Anexos: Sem prurido, lesões ativas ou queda capilar anormal.
-      [ ] Cabeça/Pescoço: Sem cefaleia, disfagia ou odinofagia.
-      [ ] Olhos: Sem dor ocular, baixa acuidade ou fotofobia.
-      [ ] Ouvidos/Nariz/Garganta: Sem otalgia, hipoacusia, rinorreia ou rouquidão.
-      [ ] Respiratório: Sem dispneia, tosse ou sibilância.
-      [ ] Cardiovascular: Sem dor torácica, palpitações ou síncope.
-      [ ] Gastrointestinal: Sem náuseas, vômitos, diarreia, constipação ou dor abdominal.
-      [ ] Geniturinário: Sem disúria, polaciúria, urgência ou hematúria.
-      [ ] Músculo-esquelético: Sem artralgias importantes, edema ou fraqueza nova.
-      [ ] Neurológico: Sem déficits focais, convulsões, parestesias ou tontura incapacitante.
-      [ ] Psiquiátrico: Sem humor deprimido persistente, ansiedade incapacitante ou ideação suicida.
-      [ ] Endócrino/Hematológico/Imunológico: Sem poliúria/polidipsia, sangramentos anormais ou infecções recorrentes.
-
-      ----------------------------------- EXAME FÍSICO --------------------------------
-      SINAIS VITAIS:Pressão arterial (PA): 
-      Frequência cardíaca (FC): 
-      Frequência respiratória (FR): 
-      Temperatura (T): 
-      Saturação periférica de oxigênio (SpO2): 
-      Glicemia capilar (GC): 
-      Dor (0–10): 
-      - Exame geral: Bom estado geral, corado, hidratado, afebril, acianótico, anictérico, eupneico, sem dor aguda.
-      - Respiratório: MV+ bilateral, sem ruídos adventícios, expansibilidade preservada.
-      - Cardiovascular: BCNF em 2T, sem sopros/arn, perfusão periférica adequada, sem edemas.
-      - Abdome: Plano, flácido, indolor à palpação, RHA+, sem visceromegalias.
-      - Neurológico: Consciente, orientado, sem déficits motores/sensitivos aparentes, marcha preservada.
-      - Músculo-esquelético: Trofismo preservado, força e sensibilidade globais mantidas, sem deformidades.
-      - Pele e mucosas: Íntegras, bem perfundidas, sem lesões ativas.
-      - Outros: 
-
-      ------------------------------ HIPÓTESES DIAGNÓSTICAS ---------------------------
-      SINDRÔMICA: 
-      ANATÔMICA/TOPOGRÁFICA: 
-      ETIOLÓGICA: 
-
-      -------------------------------------- CONDUTAS ---------------------------------
-      Exames complementares (livre):
-
-      Pareceres interconsultas (especialidade/justificativa):
-
-      Terapêutica/Plano (medicações, hidratação, O2, analgesia, procedimentos, dieta):
-
-      Planejamento (observação/internação/alta; metas e reavaliação):
-
-      Impressão clínica: 
-    </code></pre>
-
-    <h2>Modelo Evo ENF</h2>
-
-    <pre><code>
-
-      Meu modelo narrativo padronizado de evolução médica em enfermaria
-
-      ---Informações Gerais---
-
-      Data e Hora:
-
-      Identificação: [nome completo], [idade], [Masculino/Feminino], [leito], P0: [motivo da internação].
-
-      Alergias: [destacar, se houver].
-
-      ---Lista de Problemas---
-
-      P1. [problema // data de inicio]
-      P2. [problema // data de inicio]
-      P3. [problema // data de inicio]
-      P4. [problema // data de inicio]
-      P5. [problema // data de inicio]
-
-      ---Evolução---
-
-      Paciente encontra-se internado há [X] dias por [motivo da internação]. Hoje apresenta [queixas principais do dia/ausência de queixas], conforme relato [próprio/acompanhante]. Refere [melhora/piora/manutenção/ausência] de sintomas como [exemplo: dor, dispneia, febre], sem intercorrências significativas desde a última avaliação.
-
-      ---Ao exame---
-
-      Paciente encontrado [dormindo/acordado], em [bom/regular/mau] estado geral, [consciente/inconsciente/sedado], [orientado/desorientado] em tempo e espaço. 
-
-      SSVV: PA    mmHg | FC bpm | FR  irpm | Temp  °C | SpO2 % | Diurese  mL/24h
-
-      Ausculta pulmonar MV [presente/ausente/abolido], [sem/com] RA, [roncos/sibilos/estertores]. 
-      Ausculta cardíaca em ritmo [regular/irregular], bulhas [normofonéticas/B3/B4/extrassístoles], [sem/com] sopros [se sopros, descrever localização e intensidade]. 
-      Abdome [flácido/doloroso/hipertimpânico/ascítico], RHA [presentes/hipoativos/ausentes], [sem/com] visceromegalias. 
-      Extremidades [sem/com] edemas, pulsos [palpáveis/diminuídos/ausentes], [sem/com] cianose. 
-      Feridas/curativos [limpos/secos/íntegros/hip[48;25;80;500;720terêmicos/com secreção/deiscência/necrose].
-
-      ---Dados Complementares---
-
-      Balanço hídrico nas últimas 24h: [entradas: volume oral/venoso; saídas: diurese, drenos, perdas insensíveis]. 
-
-      Evolução laboratorial/imagem: [registrar exames disponíveis, resultados significativos]. 
-
-      Enfermagem relata [resumo de intercorrências e observações relevantes].
-
-      Avaliação clínica atual: paciente com diagnóstico principal de [especificar], em evolução [favorável/estacionária/desfavorável], mantendo [melhora parcial, complicações, estabilidade]. 
-
-      Em uso de [Medicamento], iniciado em [data], está no dia [X/Y] do uso. Sem sinais de reações adversas conhecidas.
-
-      ---Conduta/Plano---
-
-      Manter [e/ou] Adicionar [medicações, doses, vias, intervalos].
-
-      Realizar [novos exames complementares/pareceres de especialidades].
-
-      Ajustar [hidratação, analgesia, dieta, fisioterapia, cuidados gerais].
-
-      Programar [conduta futura, alta, procedimento, transferência].
-
-      Reavaliar diariamente evolução clínica e laboratorial.
-    </code></pre>
-
-    <h2>Comando GIT</h2>
-
-    <pre><code>
-      git add . && git commit -m ''atualizando'' && git push origin main
-    </code></pre>
-
-    <h2>Comando LS</h2>
-
-    <pre><code>
-      ls -1 post-*.html | jq -R -s 'split("\n")[:-1]' > posts.json
-    </code></pre>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header role="banner" aria-label="Cabeçalho">
+      <div class="brand" aria-label="Identificação da página">Hub Split</div>
+      <div class="help" aria-hidden="true">
+        Atalhos: Ctrl+Shift+V alterna orientação · Ctrl+Seta ajusta divisor · F
+        para tela cheia do painel focado
+      </div>
+      <div class="spacer"></div>
+      <button
+        type="button"
+        class="btn"
+        id="btnOrientation"
+        aria-pressed="false"
+        aria-label="Alternar orientação (vertical/horizontal)"
+      >
+        Orientação: Vertical
+      </button>
+    </header>
+
+    <main id="conteudo" role="main">
+      <section
+        class="split"
+        id="split"
+        data-orientation="vertical"
+        aria-label="Área com dois painéis redimensionáveis"
+      >
+        <!-- Painel esquerdo / superior -->
+        <section class="panel" id="panel-o" aria-label="Painel do Site O">
+          <header role="toolbar" aria-label="Ferramentas do Painel O">
+            <div class="panel-title">Site O</div>
+            <div class="spacer"></div>
+            <button
+              type="button"
+              class="btn"
+              data-full="o"
+              aria-label="Tela cheia do Site O"
+            >
+              Tela cheia
+            </button>
+            <a
+              class="btn"
+              href="indexo.html"
+              target="_blank"
+              rel="noopener"
+              aria-label="Abrir Site O em nova aba"
+              >Nova aba</a
+            >
+          </header>
+          <iframe
+            class="frame"
+            id="frame-o"
+            title="Site O (conteúdo intacto)"
+            src="indexo.html"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </section>
+
+        <!-- Divisor acessível -->
+        <div
+          class="divider"
+          id="divider"
+          role="separator"
+          tabindex="0"
+          aria-label="Divisor entre painéis"
+          aria-orientation="vertical"
+          aria-valuemin="15"
+          aria-valuemax="85"
+          aria-valuenow="50"
+        ></div>
+
+        <!-- Painel direito / inferior -->
+        <section class="panel" id="panel-s" aria-label="Painel do Site S">
+          <header role="toolbar" aria-label="Ferramentas do Painel S">
+            <div class="panel-title">Site S</div>
+            <div class="spacer"></div>
+            <button
+              type="button"
+              class="btn"
+              data-full="s"
+              aria-label="Tela cheia do Site S"
+            >
+              Tela cheia
+            </button>
+            <a
+              class="btn"
+              href="indexs.html"
+              target="_blank"
+              rel="noopener"
+              aria-label="Abrir Site S em nova aba"
+              >Nova aba</a
+            >
+          </header>
+          <iframe
+            class="frame"
+            id="frame-s"
+            title="Site S (conteúdo intacto)"
+            src="indexs.html"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </section>
+      </section>
+
+      <noscript>
+        <p>JavaScript desativado. Acesse diretamente:</p>
+        <ul>
+          <li><a href="indexo.html">Site O</a></li>
+          <li><a href="indexs.html">Site S</a></li>
+        </ul>
+      </noscript>
+    </main>
+
+    <script>
+      // KISS + SRP: poucas funções, cada uma com responsabilidade clara.
+      const $ = (sel) => document.querySelector(sel);
+
+      const split = $("#split");
+      const divider = $("#divider");
+      const panelO = $("#panel-o");
+      const panelS = $("#panel-s");
+      const btnOrientation = $("#btnOrientation");
+
+      // Estado: proporção do primeiro painel (em %); orientação 'vertical'| 'horizontal'
+      let percent = 50;
+      let orientation = split.getAttribute("data-orientation"); // 'vertical' por padrão
+      let dragging = false;
+
+      function applyLayout() {
+        // Define template conforme orientação e percentuais
+        if (orientation === "vertical") {
+          split.style.gridTemplateColumns = `${percent}% 8px ${100 - percent}%`;
+          split.style.gridTemplateRows = "100%";
+          divider.setAttribute("aria-orientation", "vertical");
+          btnOrientation.textContent = "Orientação: Vertical";
+        } else {
+          split.style.gridTemplateRows = `${percent}% 8px ${100 - percent}%`;
+          split.style.gridTemplateColumns = "100%";
+          divider.setAttribute("aria-orientation", "horizontal");
+          btnOrientation.textContent = "Orientação: Horizontal";
+        }
+        divider.setAttribute("aria-valuenow", String(Math.round(percent)));
+      }
+
+      function setPercent(next) {
+        // Mantém de 15% a 85% para não colapsar
+        percent = Math.max(15, Math.min(85, next));
+        applyLayout();
+      }
+
+      // Alternar orientação (Ctrl+Shift+V ou botão)
+      function toggleOrientation() {
+        orientation = orientation === "vertical" ? "horizontal" : "vertical";
+        split.setAttribute("data-orientation", orientation);
+        btnOrientation.setAttribute(
+          "aria-pressed",
+          orientation === "horizontal" ? "true" : "false",
+        );
+        applyLayout();
+      }
+
+      // Cálculo de percent com base no mouse
+      function calcPercentFromEvent(e) {
+        const rect = split.getBoundingClientRect();
+        if (orientation === "vertical") {
+          const x = e.clientX - rect.left;
+          return (x / rect.width) * 100;
+        } else {
+          const y = e.clientY - rect.top;
+          return (y / rect.height) * 100;
+        }
+      }
+
+      // Eventos de arraste do divisor
+      divider.addEventListener("mousedown", (e) => {
+        dragging = true;
+        e.preventDefault();
+        divider.focus();
+      });
+      window.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        setPercent(calcPercentFromEvent(e));
+      });
+      window.addEventListener("mouseup", () => {
+        dragging = false;
+      });
+
+      // Suporte a toque
+      divider.addEventListener(
+        "touchstart",
+        (e) => {
+          dragging = true;
+          divider.focus();
+        },
+        { passive: true },
+      );
+      window.addEventListener(
+        "touchmove",
+        (e) => {
+          if (!dragging) return;
+          const t = e.touches[0];
+          if (!t) return;
+          setPercent(calcPercentFromEvent(t));
+        },
+        { passive: true },
+      );
+      window.addEventListener("touchend", () => {
+        dragging = false;
+      });
+
+      // Teclado no divisor: setas ajustam 2%, Shift+seta ajusta 10%
+      divider.addEventListener("keydown", (e) => {
+        const big = e.shiftKey ? 10 : 2;
+        if (orientation === "vertical") {
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            setPercent(percent - big);
+          }
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            setPercent(percent + big);
+          }
+        } else {
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            setPercent(percent - big);
+          }
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setPercent(percent + big);
+          }
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "v") {
+          e.preventDefault();
+          toggleOrientation();
+        }
+      });
+
+      // Botão de orientação
+      btnOrientation.addEventListener("click", toggleOrientation);
+      window.addEventListener("keydown", (e) => {
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          e.shiftKey &&
+          e.key.toLowerCase() === "v"
+        ) {
+          e.preventDefault();
+          toggleOrientation();
+        }
+        // F para fullscreen do painel focado (o botão ou o iframe precisam estar focados)
+        if (e.key.toLowerCase() === "f") {
+          const active = document.activeElement;
+          if (!active) return;
+          // Prioriza painel pai do elemento focado
+          const panel = active.closest?.(".panel");
+          if (panel) {
+            const iframe = panel.querySelector(".frame");
+            toggleFullscreen(iframe || panel);
+          }
+        }
+      });
+
+      // Tela cheia por botão em cada painel
+      document.querySelectorAll("[data-full]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target =
+            btn.getAttribute("data-full") === "o"
+              ? $("#frame-o")
+              : $("#frame-s");
+          toggleFullscreen(target || document.documentElement);
+        });
+      });
+
+      function toggleFullscreen(el) {
+        if (!document.fullscreenElement) {
+          el.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      }
+
+      // Inicialização
+      window.addEventListener("resize", applyLayout);
+      window.addEventListener("DOMContentLoaded", () => {
+        applyLayout();
+        // Hash opcional: #o-first ou #s-first para iniciar com proporção 70/30
+        const h = (location.hash || "").toLowerCase();
+        if (h.includes("o-first")) setPercent(70);
+        if (h.includes("s-first")) setPercent(30);
+      });
+    </script>
   </body>
 </html>

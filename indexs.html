@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="pt-BR" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Central de Conteúdos — acessível e responsiva</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta
+      name="description"
+      content="Central de Conteúdos com acessibilidade (WCAG 2.2 A), navegação por teclado e visual confortável."
+    />
+    <!-- Preferência por fontes do sistema: melhor performance e legibilidade -->
+    <style>
+      /* ---------- Design Tokens (simples) ---------- */
+      :root {
+        --bg: #121218;
+        --surface: #1a1a24;
+        --surface-2: #17172a;
+        --text: #ffffff;
+        --muted: #cfd2dc;
+        --brand: #6366f1; /* Roxo-azulado confortável */
+        --brand-strong: #5155e6;
+        --border: #2a2a3a;
+        --focus: #ffcc33; /* Cor foco com ótimo contraste */
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        --radius: 14px;
+        --radius-lg: 18px;
+        --space: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2rem;
+        --card-min: 220px;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --surface: #ffffff;
+          --surface-2: #f0f2f8;
+          --text: #111318;
+          --muted: #384152;
+          --brand: #3747ff;
+          --brand-strong: #2232f6;
+          --border: #dfe3ee;
+          --focus: #8a6200;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* ---------- Reset mínimo e tipografia ---------- */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(
+          1200px 800px at 10% 0%,
+          #181a2a 0%,
+          var(--bg) 55%
+        );
+        color: var(--text);
+        font:
+          500 16px/1.6 system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Ubuntu,
+          Cantarell,
+          Noto Sans,
+          Arial,
+          "Apple Color Emoji",
+          "Segoe UI Emoji";
+      }
+
+      a.skip-link {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        background: var(--focus);
+        color: #000;
+        padding: 0.6rem 0.9rem;
+        border-radius: 0.5rem;
+        z-index: 1000;
+      }
+      a.skip-link:focus {
+        left: 0.75rem;
+        top: 0.75rem;
+      }
+
+      /* ---------- Cabeçalho ---------- */
+      header[role="banner"] {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background:
+          linear-gradient(0deg, transparent, rgba(0, 0, 0, 0.25)), var(--bg);
+        backdrop-filter: saturate(1.1) blur(4px);
+        border-bottom: 1px solid var(--border);
+      }
+      .wrap {
+        max-width: 1200px;
+        margin-inline: auto;
+        padding: 0.9rem var(--space);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: var(--space);
+        align-items: center;
+      }
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+      }
+      .actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      /* Botões padrão acessíveis */
+      .btn {
+        appearance: none;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        font-weight: 700;
+        padding: 0.55rem 0.95rem;
+        border-radius: 0.7rem;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--surface-2);
+      }
+      .btn:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 2px;
+      }
+
+      /* ---------- Conteúdo principal ---------- */
+      main[role="main"] {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: var(--space-xl) var(--space);
+      }
+      h1 {
+        margin: 0 0 var(--space);
+        font-size: clamp(1.6rem, 3vw, 2.1rem);
+      }
+      p.lead {
+        margin-top: 0;
+        color: var(--muted);
+        max-width: 70ch;
+      }
+
+      /* Lista de cards */
+      .grid {
+        list-style: none;
+        padding: 0;
+        margin: var(--space-xl) 0;
+        display: grid;
+        gap: var(--space-lg);
+        grid-template-columns: repeat(auto-fit, minmax(var(--card-min), 1fr));
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(
+          135deg,
+          rgba(99, 102, 241, 0.18),
+          rgba(99, 102, 241, 0.06)
+        );
+        box-shadow: var(--shadow);
+        padding: var(--space-lg);
+        display: grid;
+        gap: 0.6rem;
+      }
+      .card-title {
+        font-size: 1.05rem;
+        margin: 0;
+      }
+      .card-desc {
+        color: var(--muted);
+        margin: 0;
+        font-size: 0.95rem;
+      }
+      .card .card-open {
+        margin-top: 0.25rem;
+        background: var(--brand);
+        border-color: transparent;
+        color: #fff;
+      }
+      .card .card-open:hover {
+        background: var(--brand-strong);
+      }
+
+      /* ---------- Viewers ---------- */
+      .viewer {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: color-mix(in oklab, var(--bg) 90%, black 10%);
+        backdrop-filter: blur(2px) saturate(1.05);
+      }
+      .viewer.active {
+        display: grid;
+        place-items: center;
+        padding: var(--space);
+      }
+
+      .panel {
+        width: min(96vw, 1200px);
+        height: min(88vh, 800px);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        overflow: hidden;
+      }
+      .toolbar {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem;
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--border);
+      }
+      .toolbar-left,
+      .toolbar-right {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .toolbar .label {
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .toolbar .kbd {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+        font-size: 0.85rem;
+        border: 1px solid var(--border);
+        padding: 0.1rem 0.4rem;
+        border-radius: 0.3rem;
+        background: var(--surface);
+      }
+
+      /* Botão fechar sempre visível e grande o suficiente para toque */
+      .btn-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        display: grid;
+        place-items: center;
+        border-radius: 0.6rem;
+      }
+
+      /* PDF canvas/iframe/markdown area */
+      #pdfCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: #111;
+      }
+      #htmlFrame {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #111;
+      }
+      #mdArea {
+        padding: var(--space-lg) var(--space-xl);
+        overflow: auto;
+        color: var(--text);
+        background: var(--surface);
+      }
+      #mdArea pre {
+        background: #111827;
+        padding: 0.8rem;
+        border-radius: 0.6rem;
+        overflow: auto;
+      }
+      #mdArea code {
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+      }
+
+      /* Foco visível universal */
+      :where(a, button, [tabindex]):focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 2px;
+        border-radius: 0.35rem;
+      }
+
+      /* ---------- Rodapé ---------- */
+      footer[role="contentinfo"] {
+        border-top: 1px solid var(--border);
+        margin-top: var(--space-xl);
+      }
+      .foot-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: var(--space) var(--space);
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header role="banner" aria-label="Cabeçalho">
+      <div class="wrap">
+        <div class="brand">Central de Conteúdos</div>
+        <nav class="actions" aria-label="Ações rápidas">
+          <button
+            type="button"
+            class="btn"
+            id="btnFullscreen"
+            aria-pressed="false"
+            aria-label="Alternar tela cheia"
+          >
+            Tela cheia
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo" role="main" tabindex="-1">
+      <h1>Materiais</h1>
+      <p class="lead">
+        Selecione um conteúdo para abrir. Você pode navegar pelos itens com
+        Tab/Shift+Tab e usar Enter para abrir. Atalhos dentro do visualizador:
+        ←/→ para trocar página (PDF), F para tela cheia, Esc para fechar.
+      </p>
+
+      <!-- Lista de apresentações (cards) -->
+      <ul
+        class="grid"
+        id="cardsList"
+        role="list"
+        aria-label="Lista de conteúdos"
+      ></ul>
+    </main>
+
+    <!-- Viewer genérico com três modos: PDF, HTML, Markdown -->
+    <section
+      class="viewer"
+      id="viewer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="viewerTitle"
+      hidden
+    >
+      <div class="panel">
+        <div
+          class="toolbar"
+          role="toolbar"
+          aria-label="Ferramentas do visualizador"
+        >
+          <div class="toolbar-left">
+            <strong id="viewerTitle" class="label">Visualizador</strong>
+            <span
+              class="label"
+              id="pageInfo"
+              aria-live="polite"
+              aria-atomic="true"
+              >—</span
+            >
+          </div>
+          <div class="toolbar-right">
+            <span class="label"
+              >Atalhos: <span class="kbd">Esc</span> fechar ·
+              <span class="kbd">F</span> tela cheia</span
+            >
+            <button
+              type="button"
+              class="btn btn-icon"
+              id="btnPrev"
+              aria-label="Página anterior (PDF)"
+              title="Página anterior"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              class="btn btn-icon"
+              id="btnNext"
+              aria-label="Próxima página (PDF)"
+              title="Próxima página"
+            >
+              ›
+            </button>
+            <button
+              type="button"
+              class="btn btn-icon"
+              id="btnClose"
+              aria-label="Fechar visualizador"
+              title="Fechar"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- Áreas de exibição -->
+        <canvas id="pdfCanvas" role="img" aria-label="Página do PDF"></canvas>
+        <iframe
+          id="htmlFrame"
+          title="Conteúdo em página HTML"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+        <article id="mdArea" aria-label="Conteúdo Markdown" hidden></article>
+      </div>
+    </section>
+
+    <footer role="contentinfo">
+      <div class="foot-wrap">
+        <p>
+          Compatível com diretrizes
+          <strong
+            >WCAG (Web Content Accessibility Guidelines) 2.2 — nível A</strong
+          >. Use o teclado com liberdade.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Dependências CDN (mantidas por simplicidade; pode fixar versões/integrity se desejar) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+      defer
+    ></script>
+
+    <script>
+      // -----------------------------
+      // App Central – JS limpo e simples
+      // SRP (Responsabilidade Única): cada função faz uma coisa só.
+      // DRY: dados em um array único; sem duplicar rótulos ou handlers.
+      // -----------------------------
+
+      /** Lista de conteúdos (fonte única de verdade) */
+      const CONTENT = [
+        {
+          title: "Modelo",
+          path: "caminho/",
+          kind: "extensão",
+          description: "Descrição",
+          tags: ["tags", "diversas"],
+        },
+        // Para suportar Markdown, basta incluir itens: {title, path: "mds/arquivo.md", kind: "md", description:"..."}
+      ];
+
+      // Elementos principais
+      const cardsList = document.getElementById("cardsList");
+      const viewer = document.getElementById("viewer");
+      const viewerTitle = document.getElementById("viewerTitle");
+      const pageInfo = document.getElementById("pageInfo");
+      const btnClose = document.getElementById("btnClose");
+      const btnPrev = document.getElementById("btnPrev");
+      const btnNext = document.getElementById("btnNext");
+      const btnFullscreen = document.getElementById("btnFullscreen");
+
+      const pdfCanvas = document.getElementById("pdfCanvas");
+      const htmlFrame = document.getElementById("htmlFrame");
+      const mdArea = document.getElementById("mdArea");
+      const pdfCtx = pdfCanvas.getContext("2d");
+
+      // Estado do PDF
+      let pdfDoc = null,
+        pageNum = 1,
+        totalPages = 1,
+        rendering = false,
+        pending = null;
+
+      // --------- Acessibilidade e UX utilitários ---------
+      const setHidden = (el, flag) => {
+        if (flag) {
+          el.setAttribute("hidden", "");
+          el.style.display = "none";
+        } else {
+          el.removeAttribute("hidden");
+          el.style.display = "";
+        }
+      };
+
+      const activateViewer = (title) => {
+        viewerTitle.textContent = title || "Visualizador";
+        viewer.classList.add("active");
+        viewer.removeAttribute("hidden");
+        // Focar no título do diálogo para leitores de tela saberem da mudança de contexto
+        viewerTitle.focus({ preventScroll: true });
+        document.body.style.overflow = "hidden";
+      };
+
+      const deactivateViewer = () => {
+        viewer.classList.remove("active");
+        viewer.setAttribute("hidden", "");
+        document.body.style.overflow = "";
+        // Limpeza dos viewers
+        htmlFrame.src = "";
+        mdArea.textContent = "";
+        pdfCanvas.width = pdfCanvas.height = 0;
+        pdfDoc = null;
+        updatePdfControls();
+      };
+
+      const updatePdfControls = () => {
+        const isPdf = !!pdfDoc;
+        btnPrev.disabled = !isPdf || pageNum <= 1;
+        btnNext.disabled = !isPdf || pageNum >= totalPages;
+        pageInfo.textContent = isPdf
+          ? `Página ${pageNum} de ${totalPages}`
+          : "—";
+      };
+
+      // --------- Renderização de Cards ---------
+      const renderCards = () => {
+        // Limpando a lista (caso re-render)
+        cardsList.innerHTML = "";
+        for (const item of CONTENT) {
+          const li = document.createElement("li");
+          li.className = "card";
+          const h3 = document.createElement("h3");
+          h3.className = "card-title";
+          h3.textContent = item.title;
+
+          const p = document.createElement("p");
+          p.className = "card-desc";
+          p.textContent = item.description;
+
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "btn card-open";
+          btn.textContent = "Abrir";
+          btn.setAttribute("aria-label", `Abrir ${item.title}`);
+          btn.addEventListener("click", () => openItem(item));
+
+          li.append(h3, p, btn);
+          cardsList.appendChild(li);
+        }
+      };
+
+      // --------- Abertura de Itens ---------
+      function openItem(item) {
+        // Mostra viewer, decide modo e carrega
+        activateViewer(item.title);
+        // Esconde todas as áreas, mostra só a necessária
+        setHidden(pdfCanvas, true);
+        setHidden(htmlFrame, true);
+        setHidden(mdArea, true);
+
+        if (item.kind === "pdf") {
+          setHidden(pdfCanvas, false);
+          loadPdf(item.path);
+        } else if (item.kind === "html") {
+          setHidden(htmlFrame, false);
+          htmlFrame.src = item.path;
+          pageInfo.textContent = "Documento HTML";
+          updatePdfControls();
+        } else if (item.kind === "md") {
+          setHidden(mdArea, false);
+          fetch(item.path)
+            .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
+            .then((md) => {
+              mdArea.innerHTML = marked.parse(md);
+              pageInfo.textContent = "Documento Markdown";
+            })
+            .catch(() => {
+              mdArea.textContent = "Não foi possível carregar o Markdown.";
+            });
+          updatePdfControls();
+        }
+      }
+
+      // --------- PDF.js ---------
+      // Comentário (decisão): Mantemos PDF.js pelo controle fino de acessibilidade e paginação.
+      function loadPdf(src) {
+        pageInfo.textContent = "Carregando PDF...";
+        pdfjsLib
+          .getDocument(src)
+          .promise.then((doc) => {
+            pdfDoc = doc;
+            pageNum = 1;
+            totalPages = doc.numPages;
+            updatePdfControls();
+            renderPage(pageNum);
+          })
+          .catch(() => {
+            pageInfo.textContent = "Falha ao carregar PDF.";
+          });
+      }
+
+      function renderPage(num) {
+        if (!pdfDoc) return;
+        rendering = true;
+        pdfDoc.getPage(num).then((page) => {
+          // Escala adaptativa: tenta ocupar largura/altura da área mantendo proporção
+          const viewport = page.getViewport({ scale: 1.5 });
+          const ratio = window.devicePixelRatio || 1;
+          const maxW = pdfCanvas.parentElement.clientWidth;
+          const maxH = pdfCanvas.parentElement.clientHeight - 60; // desconta toolbar
+          const scaleW = maxW / viewport.width;
+          const scaleH = maxH / viewport.height;
+          const scale = Math.max(0.6, Math.min(scaleW, scaleH));
+          const vp = page.getViewport({ scale: scale });
+
+          pdfCanvas.width = Math.floor(vp.width * ratio);
+          pdfCanvas.height = Math.floor(vp.height * ratio);
+          pdfCanvas.style.width = Math.floor(vp.width) + "px";
+          pdfCanvas.style.height = Math.floor(vp.height) + "px";
+
+          const renderContext = {
+            canvasContext: pdfCtx,
+            viewport: vp,
+            transform: [ratio, 0, 0, ratio, 0, 0],
+          };
+          page.render(renderContext).promise.then(() => {
+            rendering = false;
+            pageInfo.textContent = `Página ${pageNum} de ${totalPages}`;
+            if (pending !== null) {
+              const next = pending;
+              pending = null;
+              renderPage(next);
+            }
+          });
+        });
+      }
+
+      const queueRender = (num) => {
+        if (rendering) pending = num;
+        else renderPage(num);
+      };
+
+      // --------- Eventos UI ---------
+      btnClose.addEventListener("click", deactivateViewer);
+      btnPrev.addEventListener("click", () => {
+        if (pdfDoc && pageNum > 1) {
+          pageNum--;
+          queueRender(pageNum);
+          updatePdfControls();
+        }
+      });
+      btnNext.addEventListener("click", () => {
+        if (pdfDoc && pageNum < totalPages) {
+          pageNum++;
+          queueRender(pageNum);
+          updatePdfControls();
+        }
+      });
+
+      // Tela cheia acessível (sem depender de emoji)
+      btnFullscreen.addEventListener("click", () => {
+        const active = document.fullscreenElement != null;
+        if (!active) {
+          // Escolhe a região ativa: PDF, HTML ou MD; fallback para documento
+          let el = viewer.classList.contains("active")
+            ? !pdfCanvas.hasAttribute("hidden")
+              ? pdfCanvas
+              : !htmlFrame.hasAttribute("hidden")
+                ? htmlFrame
+                : !mdArea.hasAttribute("hidden")
+                  ? mdArea
+                  : document.documentElement
+            : document.documentElement;
+          el.requestFullscreen?.();
+          btnFullscreen.setAttribute("aria-pressed", "true");
+        } else {
+          document.exitFullscreen?.();
+          btnFullscreen.setAttribute("aria-pressed", "false");
+        }
+      });
+
+      // Teclado global (somente quando viewer aberto)
+      window.addEventListener("keydown", (e) => {
+        if (!viewer.classList.contains("active")) return;
+        if (e.key === "Escape") {
+          e.preventDefault();
+          deactivateViewer();
+        }
+        if (e.key.toLowerCase() === "f") {
+          e.preventDefault();
+          btnFullscreen.click();
+        }
+        if (!pdfDoc) return;
+        if (
+          (e.key === "ArrowRight" || e.key === "PageDown") &&
+          pageNum < totalPages
+        ) {
+          pageNum++;
+          queueRender(pageNum);
+          updatePdfControls();
+        }
+        if ((e.key === "ArrowLeft" || e.key === "PageUp") && pageNum > 1) {
+          pageNum--;
+          queueRender(pageNum);
+          updatePdfControls();
+        }
+      });
+
+      // Evitar scroll de fundo quando dialog aberto por gesto do usuário (garantia extra)
+      viewer.addEventListener(
+        "wheel",
+        (e) => {
+          if (viewer.classList.contains("active")) {
+            // Permite rolagem apenas dentro do painel
+            const path = e.composedPath?.() || [];
+            if (!path.includes(document.querySelector(".panel")))
+              e.preventDefault();
+          }
+        },
+        { passive: false },
+      );
+
+      // Inicializa cards ao carregar
+      window.addEventListener("DOMContentLoaded", renderCards);
+    </script>
+
+    <noscript>
+      <style>
+        .viewer {
+          display: none !important;
+        }
+        .grid .card {
+          outline: 2px dashed var(--border);
+        }
+      </style>
+      <div class="wrap" style="max-width: 1200px; margin: 2rem auto">
+        <p>
+          O JavaScript está desativado. Você ainda pode acessar os conteúdos
+          diretamente pelos links:
+        </p>
+        <ul>
+          <li><a href="htmls/endocardite/index.html">Endocardite e ITU</a></li>
+          <li><a href="pdfs/amenorreia.pdf">Amenorreia</a></li>
+          <li><a href="htmls/tireoide.html">Tireoide</a></li>
+          <li><a href="pdfs/efeitos_tireoide.pdf">Efeitos de Tireoide</a></li>
+          <li><a href="htmls/cafe.html">Café</a></li>
+          <li><a href="pdfs/leucemias.pdf">Leucemia</a></li>
+          <li><a href="pdfs/diarreia.pdf">Diarreia</a></li>
+          <li>
+            <a href="htmls/neuralgia-trigemeo/index.html"
+              >Neuralgia do Trigêmeo</a
+            >
+          </li>
+        </ul>
+      </div>
+    </noscript>
+  </body>
+</html>
