@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Máscaras</title>
+    <style>
+      :root {
+        --cor-fundo: #ffffff;
+        --cor-texto-principal: #1a1a1a;
+        --cor-texto-secundario: #4d4d4d;
+        --cor-borda: #cccccc;
+        --cor-primaria: #005fcc;
+        --cor-primaria-foco: #004c99;
+        --cor-sucesso: #006421;
+        --fonte-principal:
+          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--fonte-principal);
+        line-height: 1.6;
+        margin: 0;
+        padding: 1rem;
+        background-color: var(--cor-fundo);
+        color: var(--cor-texto-principal);
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      .cabecalho {
+        text-align: center;
+        border-bottom: 1px solid var(--cor-borda);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+      }
+      .cabecalho h1 {
+        font-size: 2.2rem;
+        margin: 0;
+      }
+      .cabecalho p {
+        font-size: 1rem;
+        color: var(--cor-texto-secundario);
+        margin-top: 0.5rem;
+      }
+
+      .secao-mascara {
+        background-color: var(--cor-fundo);
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+      }
+      .secao-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.9rem 1.2rem;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid var(--cor-borda);
+      }
+      .secao-header h2 {
+        font-size: 1.3rem;
+        margin: 0;
+      }
+      .texto-mascara {
+        padding: 1.1rem 1.2rem;
+        white-space: pre-wrap; /* mantém quebras */
+        word-break: normal; /* não quebra palavras sem necessidade */
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+          monospace;
+        font-size: 0.98rem;
+        background-color: #fdfdfd;
+      }
+      .btn-copiar {
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--cor-primaria);
+        background-color: var(--cor-fundo);
+        color: var(--cor-primaria);
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease;
+      }
+      .btn-copiar:hover {
+        background-color: var(--cor-primaria);
+        color: var(--cor-fundo);
+      }
+      .btn-copiar:focus-visible {
+        outline: 3px solid var(--cor-primaria-foco);
+        outline-offset: 2px;
+      }
+      .btn-copiar.copiado {
+        background-color: var(--cor-sucesso);
+        color: var(--cor-fundo);
+        border-color: var(--cor-sucesso);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="cabecalho">
+        <h1 id="titulo">Máscaras</h1>
+        <p>
+          Modelos prontos para copiar e colar (com quebras de linha
+          padronizadas).
+        </p>
+      </header>
+
+      <main aria-labelledby="titulo">
+        <!-- HMA Padrão -->
+        <section
+          class="secao-mascara"
+          id="mascara-hma-padrao"
+          role="region"
+          aria-labelledby="h2-hma-padrao"
+        >
+          <div class="secao-header">
+            <h2 id="h2-hma-padrao">HMA Padrão</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de HMA Padrão"
+              aria-controls="texto-hma-padrao"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-hma-padrao">
+            PACIENTE RELATA QUE, HÁ XX DIAS, INICIOU QUADRO EVOLUINDO COM XXXXX.
+            NEGA TOSSE, FEBRE, RINORREIA, ESPIRRO, DISPNEIA, ODINOFAGIA, ANOSMIA, NÁUSEAS, VÔMITOS, DIARREIA, ASTENIA, MIALGIA, HIPOREXIA.
+            HPP: NEGA COMORBIDADES PRÉVIAS. NEGA ALERGIA MEDICAMENTOSA.
+          </div>
+        </section>
+
+        <!-- Exame Físico Masculino -->
+        <section
+          class="secao-mascara"
+          id="mascara-ef-masculino"
+          role="region"
+          aria-labelledby="h2-ef-masculino"
+        >
+          <div class="secao-header">
+            <h2 id="h2-ef-masculino">E.F. Masculino</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de E.F. Masculino"
+              aria-controls="texto-ef-masculino"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-ef-masculino">
+            GERAL: BEG, LOTE, CORADO, HIDRATADO, ANICTÉRICO, AFEBRIL, EUPNEICO.
+            AR: MV+ EM AMBOS HEMITÓRAX. NÃO AUSCULTA RUÍDOS ADVENTÍCIOS. SEM SINAIS DE DESCONFORTO RESPIRATÓRIO. 
+            ACV: BULHAS RÍTMICAS E NORMOFONÉTICAS, EM DOIS TEMPOS. NÃO AUSCULTA SOPROS. 
+            AGI: FLÁCIDO E DEPRESSÍVEL. RHA PRESENTES. ABDOME TIMPÂNICO, INDOLOR À PALPAÇÃO SUPERFICIAL E PROFUNDA, SEM VISCEROMEGALIAS OU MASSAS. SEM SINAIS DE IRRITAÇÃO PERITONEAL. 
+            EXT: BEM PERFUNDIDAS, SEM EDEMAS, TEC &lt; 3 SEGUNDOS. 
+            AN: ECG 15, PUPILAS ISOFOTORREAGENTES, SEM DÉFICITS FOCAIS APARENTES.
+          </div>
+        </section>
+
+        <!-- Exame Físico Feminino -->
+        <section
+          class="secao-mascara"
+          id="mascara-ef-feminino"
+          role="region"
+          aria-labelledby="h2-ef-feminino"
+        >
+          <div class="secao-header">
+            <h2 id="h2-ef-feminino">E.F. Feminino</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de E.F. Feminino"
+              aria-controls="texto-ef-feminino"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-ef-feminino">
+            GERAL: BEG, LOTE, CORADA, HIDRATADA, ANICTÉRICA, AFEBRIL, EUPNEICA.
+            AR: MV+ EM AMBOS HEMITÓRAX. NÃO AUSCULTA RUÍDOS ADVENTÍCIOS. SEM SINAIS DE DESCONFORTO RESPIRATÓRIO. 
+            ACV: BULHAS RÍTMICAS E NORMOFONÉTICAS, EM DOIS TEMPOS. NÃO AUSCULTA SOPROS. 
+            AGI: FLÁCIDO E DEPRESSÍVEL. RHA PRESENTES. ABDOME TIMPÂNICO, INDOLOR À PALPAÇÃO SUPERFICIAL E PROFUNDA, SEM VISCEROMEGALIAS OU MASSAS. SEM SINAIS DE IRRITAÇÃO PERITONEAL. 
+            EXT: BEM PERFUNDIDAS, SEM EDEMAS, TEC &lt; 3 SEGUNDOS. 
+            AN: ECG 15, PUPILAS ISOFOTORREAGENTES, SEM DÉFICITS FOCAIS APARENTES.
+          </div>
+        </section>
+
+        <!-- Conduta — Casa -->
+        <section
+          class="secao-mascara"
+          id="mascara-conduta-casa"
+          role="region"
+          aria-labelledby="h2-conduta-casa"
+        >
+          <div class="secao-header">
+            <h2 id="h2-conduta-casa">Conduta — Casa</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de Conduta — Casa"
+              aria-controls="texto-conduta-casa"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-conduta-casa">
+            PRESCREVO SINTOMÁTICOS. 
+            ALTA APÓS MELHORA. 
+            RECEITO MEDICAÇÕES PARA USO DOMICILIAR. 
+            ORIENTAÇÕES GERAIS E ACOMPANHAMENTO AMBULATORIAL. 
+            ORIENTO RETORNAR À UNIDADE SE SINAIS DE ALARME OU PIORA. 
+            ATESTADO MÉDICO REALIZADO.
+          </div>
+        </section>
+
+        <!-- Conduta — Reavaliação -->
+        <section
+          class="secao-mascara"
+          id="mascara-conduta-reavaliacao"
+          role="region"
+          aria-labelledby="h2-conduta-reavaliacao"
+        >
+          <div class="secao-header">
+            <h2 id="h2-conduta-reavaliacao">Conduta — Reavaliação</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de Conduta — Reavaliação"
+              aria-controls="texto-conduta-reavaliacao"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-conduta-reavaliacao">
+            RECEBO LABORATORIAIS SEM SINAIS DE INFECÇÃO OU OUTRAS ALTERAÇÕES EXPRESSIVAS. 
+            RECEBO ECG (ELETROCARDIOGRAMA) SEM SINAIS DE ISQUEMIA AGUDA. 
+            RECEBO RADIOGRAFIA DE TÓRAX SEM SINAIS DE CONGESTÃO PULMONAROU OUTRAS ALTERAÇÕES. 
+            PACIENTE COM MELHORA DO ESTADO GERAL APÓS MEDIDAS. RECEITO SINTOMÁTICOS PARA USO DOMICILIAR. 
+            ORIENTO RETORNAR  À UNIDADE DE PRONTO ATENDIMENTO SE SINAIS DE ALARME OU PIORA.  
+            ACOMPANHAMENTO AMBULATORIAL. 
+            ALTA DA CLÍNICA MÉDICA. 
+            ATESTADO MÉDICO REALIZADO.
+          </div>
+        </section>
+
+        <!-- NOVA: Prescrição — Internamento -->
+        <section
+          class="secao-mascara"
+          id="mascara-prescricao-internamento"
+          role="region"
+          aria-labelledby="h2-prescricao-internamento"
+        >
+          <div class="secao-header">
+            <h2 id="h2-prescricao-internamento">Prescrição — Internamento</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de Prescrição — Internamento"
+              aria-controls="texto-prescricao-internamento"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-prescricao-internamento">
+            INSULINA REGULAR, SC (SUBCUTÂNEO) — USO CONFORME PROTOCOLO DA UNIDADE PARA HIPERGLICEMIA. 
+            1) REPOUSO NO LEITO. 
+            2) DIETA (LIVRE? ZERO?). 
+            3) SUPORTE DE O₂ SE SatO₂ (SATURAÇÃO DE OXIGÊNIO) &lt; 96%.
+            4) DIPIRONA, 1 AMPOLA, IV (INTRAVENOSO), DE 6/6 HORAS, SE DOR OU FEBRE. 
+            5) ONDANSETRONA, 1 AMPOLA, IV, DE 8/8 HORAS, SE NÁUSEAS OU VÔMITOS. 
+            6) ________________________________. 
+            7) GLICOSE 25%, 6 AMPOLAS, IV, SE HGT (HEMOGLICOTESTE) &lt; 70 MG/DL. 
+            8) DADOS VITAIS DE 6/6 HORAS. 
+            9) CUIDADOS GERAIS. 
+            OBS: AVALIAR NECESSIDADE DO USO DE ATB — CEFTRIAXONA 2 g/DIA E AZITROMICINA 500 mg/DIA.
+          </div>
+        </section>
+
+        <!-- NOVA: Exames — Internamento -->
+        <section
+          class="secao-mascara"
+          id="mascara-exames-internamento"
+          role="region"
+          aria-labelledby="h2-exames-internamento"
+        >
+          <div class="secao-header">
+            <h2 id="h2-exames-internamento">Exames — Internamento</h2>
+            <button
+              type="button"
+              class="btn-copiar"
+              aria-label="Copiar texto de Exames — Internamento"
+              aria-controls="texto-exames-internamento"
+            >
+              Copiar
+            </button>
+          </div>
+          <div class="texto-mascara" id="texto-exames-internamento">
+            LABORATORIAIS: 
+            HEMOGRAMA, UR (UREIA), CR (CREATININA), NA (SÓDIO), K (POTÁSSIO), TGO, TGP, EAS (EXAME DE URINA TIPO 1). 
+            ELETROCARDIOGRAMA EM 12 DERIVAÇÕES. 
+            RADIOGRAFIA DE TÓRAX. 
+            RT-PCR PARA COVID-19 / TESTE RÁPIDO PARA COVID-19.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div
+      id="feedback-copia"
+      role="status"
+      aria-live="polite"
+      class="sr-only"
+    ></div>
+
+    <script>
+      async function copiarTextoById(targetId) {
+        const el = document.getElementById(targetId);
+        if (!el) throw new Error("Elemento não encontrado: " + targetId);
+        const texto = el.innerText;
+
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(texto);
+          return;
+        }
+        const ta = document.createElement("textarea");
+        ta.value = texto;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "-1000px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const feedback = document.getElementById("feedback-copia");
+        document.querySelectorAll(".btn-copiar").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const targetId = btn.getAttribute("aria-controls");
+            const textoOriginal = btn.textContent;
+            try {
+              await copiarTextoById(targetId);
+              btn.textContent = "Copiado!";
+              btn.classList.add("copiado");
+              feedback.textContent =
+                "Texto da seção " +
+                btn.getAttribute("aria-label").replace("Copiar texto de ", "") +
+                " copiado para a área de transferência.";
+              setTimeout(() => {
+                btn.textContent = textoOriginal;
+                btn.classList.remove("copiado");
+              }, 2000);
+            } catch (e) {
+              console.error(e);
+              feedback.textContent =
+                "Erro ao copiar. Verifique permissões do navegador.";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

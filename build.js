@@ -1,4 +1,87 @@
-<!doctype html>
+// build.js
+// Gera um index.html estático listando os arquivos da pasta atual.
+// Uso: node build.js
+// Requisitos: Node 18+ (fs/promises, etc.)
+
+const fs = require("fs");
+const fsp = require("fs/promises");
+const path = require("path");
+
+const IGNORE = new Set([
+  "build.js",
+  "serve.js",
+  "index.html",
+  ".DS_Store",
+  "Thumbs.db",
+]);
+
+// Extensões que terão "preview" embutido
+const PREVIEW = {
+  pdf: "pdf",
+  png: "image",
+  jpg: "image",
+  jpeg: "image",
+  webp: "image",
+  gif: "image",
+  svg: "image",
+  mp4: "video",
+  webm: "video",
+  mp3: "audio",
+  wav: "audio",
+  ogg: "audio",
+  html: "html",
+  htm: "html",
+  txt: "text",
+  md: "text",
+};
+
+function asExt(name) {
+  const ext = path.extname(name).toLowerCase().replace(".", "");
+  return ext || "";
+}
+
+function escapeHtml(s) {
+  return s.replace(
+    /[&<>"']/g,
+    (ch) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[ch],
+  );
+}
+
+async function main() {
+  const dir = process.cwd();
+  const entries = await fsp.readdir(dir, { withFileTypes: true });
+
+  const files = [];
+  for (const e of entries) {
+    if (!e.isFile()) continue;
+    if (IGNORE.has(e.name)) continue;
+    if (e.name.startsWith(".")) continue;
+
+    const full = path.join(dir, e.name);
+    const stat = await fsp.stat(full);
+    const ext = asExt(e.name);
+    files.push({
+      name: e.name,
+      ext,
+      size: stat.size,
+      mtimeMs: stat.mtimeMs,
+      preview: PREVIEW[ext] || "link",
+    });
+  }
+
+  // Ordena por data de modificação (mais recente primeiro)
+  files.sort((a, b) => b.mtimeMs - a.mtimeMs);
+
+  const dataJson = JSON.stringify(files);
+
+  const html = `<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -135,7 +218,7 @@
 
   <script>
     // Dados embutidos pelo build:
-    const FILES = [{"name":"mascaras.html","ext":"html","size":13924,"mtimeMs":1760624369559.5417,"preview":"html"},{"name":"outrasmascaras.html","ext":"html","size":10572,"mtimeMs":1759548785738.099,"preview":"html"}];
+    const FILES = ${dataJson};
 
     const grid = document.getElementById('grid');
     const empty = document.getElementById('empty');
@@ -213,7 +296,7 @@
 
         const meta = document.createElement('div');
         meta.className = 'meta';
-        meta.innerHTML = `<span class="chip">${f.ext || 'sem extensão'}</span> • ${humanSize(f.size)} • ${fmtDate(f.mtimeMs)}`;
+        meta.innerHTML = \`<span class="chip">\${f.ext || 'sem extensão'}</span> • \${humanSize(f.size)} • \${fmtDate(f.mtimeMs)}\`;
         card.appendChild(meta);
 
         const open = document.createElement('div');
@@ -283,7 +366,7 @@
           viewer.innerHTML = '<div class="empty">Não foi possível pré-visualizar este arquivo.</div>';
         });
       } else {
-        viewer.innerHTML = `<div class="empty">Tipo não suportado para prévia. <a class="btn" href="${f.name}" target="_blank" rel="noopener">Abrir em nova aba</a></div>`;
+        viewer.innerHTML = \`<div class="empty">Tipo não suportado para prévia. <a class="btn" href="\${f.name}" target="_blank" rel="noopener">Abrir em nova aba</a></div>\`;
       }
     }
 
@@ -296,4 +379,13 @@
     applyFilters();
   </script>
 </body>
-</html>
+</html>`;
+
+  await fsp.writeFile(path.join(dir, "index.html"), html, "utf8");
+  console.log(`✅ index.html gerado com ${files.length} arquivo(s).`);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
