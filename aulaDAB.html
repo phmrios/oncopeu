@@ -1,0 +1,2899 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distúrbios ácido-base na LRA | Dr. Pedro Rios</title>
+
+    <style>
+      :root {
+        --bg: #f7f8fa;
+        --surface: #ffffff;
+        --surface-2: #eef2f6;
+        --text: #111827;
+        --muted: #4b5563;
+        --muted-2: #6b7280;
+        --line: #d1d5db;
+
+        --navy: #0f172a;
+        --blue: #2563eb;
+        --cyan: #0891b2;
+        --green: #15803d;
+        --amber: #b45309;
+        --red: #b91c1c;
+        --purple: #7e22ce;
+
+        --radius-lg: 28px;
+        --radius-md: 18px;
+        --radius-sm: 12px;
+
+        --shadow: 0 18px 60px rgba(15, 23, 42, 0.12);
+        --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+        --font: "Atkinson Hyperlegible", "Inter", "Segoe UI", Arial, sans-serif;
+        --mono:
+          "SFMono-Regular", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: #0b1120;
+        color: var(--text);
+        font-family: var(--font);
+        overflow: hidden;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      .deck {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background: #0b1120;
+        overflow: hidden;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: none;
+        padding: 54px 72px 62px;
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(37, 99, 235, 0.1),
+            transparent 36%
+          ),
+          linear-gradient(135deg, var(--bg), #ffffff);
+        color: var(--text);
+        overflow: hidden;
+      }
+
+      .slide.active {
+        display: flex;
+        flex-direction: column;
+        animation: fadeIn 180ms ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0.2;
+          transform: scale(0.995);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .slide.dark {
+        background:
+          radial-gradient(
+            circle at 85% 12%,
+            rgba(14, 165, 233, 0.2),
+            transparent 34%
+          ),
+          radial-gradient(
+            circle at 12% 80%,
+            rgba(124, 58, 237, 0.22),
+            transparent 35%
+          ),
+          linear-gradient(135deg, #0f172a, #111827 58%, #1e1b4b);
+        color: #f8fafc;
+      }
+
+      .slide.section {
+        justify-content: center;
+      }
+
+      .slide::after {
+        content: "";
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        bottom: 46px;
+        height: 1px;
+        background: rgba(148, 163, 184, 0.35);
+      }
+
+      .slide.dark::after {
+        background: rgba(226, 232, 240, 0.24);
+      }
+
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 28px;
+        min-height: 42px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--cyan);
+        font-weight: 800;
+        font-size: 18px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .slide.dark .eyebrow {
+        color: #67e8f9;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(37, 99, 235, 0.22);
+        background: rgba(37, 99, 235, 0.08);
+        color: #1d4ed8;
+        font-weight: 800;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 17px;
+        white-space: nowrap;
+      }
+
+      .slide.dark .tag {
+        border-color: rgba(103, 232, 249, 0.28);
+        background: rgba(8, 145, 178, 0.16);
+        color: #cffafe;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(58px, 6.4vw, 92px);
+        line-height: 0.96;
+        letter-spacing: -0.055em;
+        font-weight: 900;
+        max-width: 1120px;
+      }
+
+      h2 {
+        font-size: clamp(42px, 4.4vw, 68px);
+        line-height: 1.02;
+        letter-spacing: -0.045em;
+        font-weight: 900;
+        color: var(--navy);
+        max-width: 1180px;
+      }
+
+      .slide.dark h1,
+      .slide.dark h2,
+      .slide.dark h3 {
+        color: #f8fafc;
+      }
+
+      h3 {
+        font-size: 30px;
+        line-height: 1.1;
+        color: var(--navy);
+        letter-spacing: -0.025em;
+        font-weight: 900;
+        margin-bottom: 14px;
+      }
+
+      .subtitle {
+        font-size: clamp(24px, 2.3vw, 34px);
+        line-height: 1.25;
+        max-width: 1050px;
+        margin-top: 26px;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      .slide.dark .subtitle {
+        color: #cbd5e1;
+      }
+
+      .footer-meta {
+        position: absolute;
+        left: 72px;
+        bottom: 70px;
+        right: 72px;
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 24px;
+        font-size: 18px;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      .slide.dark .footer-meta {
+        color: #cbd5e1;
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        min-height: 0;
+      }
+
+      .grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid.aside {
+        grid-template-columns: 0.92fr 1.08fr;
+        align-items: stretch;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(148, 163, 184, 0.42);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-soft);
+        padding: 24px 26px;
+      }
+
+      .card.flat {
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .slide.dark .card {
+        background: rgba(15, 23, 42, 0.72);
+        border-color: rgba(226, 232, 240, 0.22);
+        color: #e2e8f0;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      }
+
+      .card.accent-blue {
+        border-left: 10px solid var(--blue);
+      }
+
+      .card.accent-red {
+        border-left: 10px solid var(--red);
+      }
+
+      .card.accent-green {
+        border-left: 10px solid var(--green);
+      }
+
+      .card.accent-amber {
+        border-left: 10px solid var(--amber);
+      }
+
+      .card.accent-purple {
+        border-left: 10px solid var(--purple);
+      }
+
+      .card-title {
+        font-size: 22px;
+        line-height: 1.15;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+        color: var(--navy);
+      }
+
+      .slide.dark .card-title {
+        color: #f8fafc;
+      }
+
+      .text {
+        font-size: 25px;
+        line-height: 1.32;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .slide.dark .text {
+        color: #cbd5e1;
+      }
+
+      .big-text {
+        font-size: 34px;
+        line-height: 1.18;
+        font-weight: 800;
+        color: var(--navy);
+        letter-spacing: -0.025em;
+      }
+
+      .slide.dark .big-text {
+        color: #f8fafc;
+      }
+
+      .small {
+        font-size: 18px;
+        line-height: 1.35;
+        color: var(--muted-2);
+        font-weight: 650;
+      }
+
+      .slide.dark .small {
+        color: #cbd5e1;
+      }
+
+      ul.clean,
+      ol.clean {
+        margin: 0;
+        padding-left: 1.25em;
+        font-size: 25px;
+        line-height: 1.34;
+        font-weight: 650;
+        color: var(--muted);
+      }
+
+      .slide.dark ul.clean,
+      .slide.dark ol.clean {
+        color: #dbeafe;
+      }
+
+      ul.clean li,
+      ol.clean li {
+        margin: 0.22em 0;
+        padding-left: 0.12em;
+      }
+
+      .list-tight {
+        font-size: 22px !important;
+        line-height: 1.25 !important;
+      }
+
+      .statement {
+        margin-top: 12px;
+        padding: 28px 34px;
+        border-radius: var(--radius-lg);
+        background: #0f172a;
+        color: #f8fafc;
+        font-size: 36px;
+        line-height: 1.17;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        box-shadow: var(--shadow);
+      }
+
+      .statement.light {
+        background: #ffffff;
+        color: var(--navy);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+      }
+
+      .formula {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        font-family: var(--mono);
+        font-size: clamp(26px, 3vw, 44px);
+        line-height: 1.22;
+        font-weight: 900;
+        letter-spacing: -0.045em;
+        color: var(--navy);
+        background: #ffffff;
+        border: 2px solid rgba(15, 23, 42, 0.12);
+        border-radius: var(--radius-lg);
+        padding: 22px 30px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .slide.dark .formula {
+        background: rgba(15, 23, 42, 0.72);
+        border-color: rgba(226, 232, 240, 0.24);
+        color: #f8fafc;
+      }
+
+      .calc-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        font-family: var(--mono);
+        font-weight: 900;
+        font-size: 31px;
+        line-height: 1.15;
+        letter-spacing: -0.035em;
+      }
+
+      .calc-line {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 14px 18px;
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(148, 163, 184, 0.42);
+        border-radius: var(--radius-md);
+      }
+
+      .slide.dark .calc-line {
+        background: rgba(15, 23, 42, 0.7);
+        border-color: rgba(226, 232, 240, 0.22);
+      }
+
+      .result {
+        color: var(--red);
+        font-weight: 950;
+      }
+
+      .slide.dark .result {
+        color: #fca5a5;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        color: var(--navy);
+        font-size: 19px;
+        line-height: 1;
+        font-weight: 850;
+        white-space: nowrap;
+      }
+
+      .slide.dark .pill {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.18);
+        color: #e2e8f0;
+      }
+
+      .pill.red {
+        color: #991b1b;
+        background: #fee2e2;
+        border-color: #fecaca;
+      }
+
+      .pill.blue {
+        color: #1d4ed8;
+        background: #dbeafe;
+        border-color: #bfdbfe;
+      }
+
+      .pill.green {
+        color: #166534;
+        background: #dcfce7;
+        border-color: #bbf7d0;
+      }
+
+      .pill.amber {
+        color: #92400e;
+        background: #fef3c7;
+        border-color: #fde68a;
+      }
+
+      .pill.purple {
+        color: #6b21a8;
+        background: #f3e8ff;
+        border-color: #e9d5ff;
+      }
+
+      .mini-table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: var(--radius-md);
+        background: #ffffff;
+        box-shadow: var(--shadow-soft);
+        font-size: 21px;
+        line-height: 1.2;
+        font-weight: 650;
+      }
+
+      .mini-table th {
+        text-align: left;
+        background: #0f172a;
+        color: #ffffff;
+        padding: 13px 16px;
+        font-size: 19px;
+        letter-spacing: 0.01em;
+      }
+
+      .mini-table td {
+        padding: 13px 16px;
+        border-bottom: 1px solid #e5e7eb;
+        color: #1f2937;
+        vertical-align: top;
+      }
+
+      .mini-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .mini-table .critical {
+        color: var(--red);
+        font-weight: 950;
+      }
+
+      .slide.dark .mini-table {
+        background: rgba(15, 23, 42, 0.75);
+      }
+
+      .slide.dark .mini-table td {
+        color: #e2e8f0;
+        border-color: rgba(226, 232, 240, 0.18);
+      }
+
+      .flow {
+        display: flex;
+        align-items: stretch;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .flow .step {
+        position: relative;
+        flex: 1 1 130px;
+        min-width: 145px;
+        padding: 18px 16px;
+        border-radius: var(--radius-md);
+        background: #ffffff;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        box-shadow: var(--shadow-soft);
+        font-weight: 900;
+        color: var(--navy);
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.15;
+      }
+
+      .slide.dark .flow .step {
+        background: rgba(15, 23, 42, 0.74);
+        border-color: rgba(226, 232, 240, 0.2);
+        color: #f8fafc;
+      }
+
+      .flow .step::after {
+        content: "›";
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted-2);
+        font-size: 32px;
+        z-index: 2;
+      }
+
+      .flow .step:last-child::after {
+        content: "";
+      }
+
+      .triad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .triad .card {
+        min-height: 310px;
+      }
+
+      .number {
+        display: inline-grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        background: var(--navy);
+        color: #ffffff;
+        font-weight: 950;
+        font-size: 22px;
+        margin-right: 10px;
+      }
+
+      .slide.dark .number {
+        background: #e0f2fe;
+        color: #0f172a;
+      }
+
+      .highlight {
+        color: var(--red);
+        font-weight: 950;
+      }
+
+      .blue-text {
+        color: var(--blue);
+        font-weight: 950;
+      }
+
+      .green-text {
+        color: var(--green);
+        font-weight: 950;
+      }
+
+      .purple-text {
+        color: var(--purple);
+        font-weight: 950;
+      }
+
+      .amber-text {
+        color: var(--amber);
+        font-weight: 950;
+      }
+
+      .notes {
+        display: none;
+        position: absolute;
+        right: 72px;
+        bottom: 82px;
+        width: min(620px, calc(100vw - 144px));
+        max-height: 42vh;
+        overflow: auto;
+        background: rgba(15, 23, 42, 0.94);
+        color: #f8fafc;
+        border: 1px solid rgba(226, 232, 240, 0.25);
+        border-radius: var(--radius-md);
+        padding: 18px 20px;
+        box-shadow: var(--shadow);
+        z-index: 10;
+        font-size: 18px;
+        line-height: 1.35;
+        font-weight: 600;
+      }
+
+      .show-notes .slide.active .notes {
+        display: block;
+      }
+
+      .notes strong {
+        color: #bae6fd;
+      }
+
+      .controls {
+        position: fixed;
+        left: 22px;
+        right: 22px;
+        bottom: 16px;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        pointer-events: none;
+      }
+
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        pointer-events: auto;
+      }
+
+      .btn {
+        border: 1px solid rgba(226, 232, 240, 0.22);
+        background: rgba(15, 23, 42, 0.72);
+        color: #f8fafc;
+        border-radius: 999px;
+        padding: 9px 14px;
+        font-family: var(--font);
+        font-size: 14px;
+        font-weight: 850;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+      }
+
+      .btn:hover {
+        background: rgba(30, 41, 59, 0.92);
+      }
+
+      .counter {
+        color: #f8fafc;
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(226, 232, 240, 0.22);
+        border-radius: 999px;
+        padding: 9px 14px;
+        font-size: 14px;
+        font-weight: 900;
+        backdrop-filter: blur(10px);
+        min-width: 90px;
+        text-align: center;
+      }
+
+      .progress {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 6px;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.24);
+        z-index: 40;
+      }
+
+      .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #0891b2, #2563eb, #7e22ce);
+        transition: width 180ms ease-out;
+      }
+
+      .overview .slide {
+        display: flex !important;
+        position: relative;
+        inset: auto;
+        width: 25vw;
+        height: 14.0625vw;
+        min-width: 300px;
+        min-height: 168px;
+        transform: scale(1);
+        padding: 24px;
+        overflow: hidden;
+        border-radius: 18px;
+        cursor: pointer;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.32);
+      }
+
+      .overview .slide h1 {
+        font-size: 34px;
+      }
+
+      .overview .slide h2 {
+        font-size: 25px;
+      }
+
+      .overview .slide .subtitle,
+      .overview .slide .text,
+      .overview .slide ul.clean,
+      .overview .slide ol.clean,
+      .overview .slide .mini-table,
+      .overview .slide .notes,
+      .overview .slide .footer-meta {
+        display: none !important;
+      }
+
+      .overview.deck {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        gap: 18px;
+        padding: 28px;
+        overflow: auto;
+        background: #020617;
+      }
+
+      @media (max-width: 1000px) {
+        .slide {
+          padding: 38px 36px 58px;
+        }
+
+        .slide::after {
+          left: 36px;
+          right: 36px;
+        }
+
+        .grid.two,
+        .grid.three,
+        .grid.four,
+        .grid.aside,
+        .triad {
+          grid-template-columns: 1fr;
+        }
+
+        .text,
+        ul.clean,
+        ol.clean {
+          font-size: 21px;
+        }
+
+        .mini-table {
+          font-size: 18px;
+        }
+      }
+
+      @media print {
+        html,
+        body {
+          overflow: visible;
+          background: #ffffff;
+          height: auto;
+        }
+
+        .deck {
+          width: auto;
+          height: auto;
+          overflow: visible;
+          background: #ffffff;
+        }
+
+        .slide {
+          display: flex !important;
+          position: relative;
+          width: 100vw;
+          height: 56.25vw;
+          page-break-after: always;
+          break-after: page;
+        }
+
+        .controls,
+        .progress,
+        .notes {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="progress" aria-hidden="true">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <main class="deck" id="deck">
+      <section class="slide dark active">
+        <div class="topline">
+          <div class="eyebrow">Nefrologia</div>
+          <div class="tag">Aula</div>
+        </div>
+
+        <div class="content" style="justify-content: center">
+          <h1>Distúrbios ácido-base</h1>
+          <p class="subtitle">Como reconhecê-los?</p>
+        </div>
+
+        <div class="footer-meta">
+          <span
+            >Dr. Pedro Rios | CRM-SP: 286.591 | R1 Clínica Médica IAMSPE</span
+          >
+          <span>2026</span>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Esta aula não é apenas sobre decorar fórmulas. A proposta é usar a
+          gasometria como ferramenta de raciocínio clínico. Em LRA, distúrbios
+          ácido-base frequentemente revelam mecanismo, gravidade e prioridade
+          terapêutica.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Problema inicial</div>
+          <div class="tag">pH isolado engana</div>
+        </div>
+
+        <h2>Objetivo</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-blue">
+              <div class="card-title">
+                A gasometria algumas simples perguntas
+              </div>
+              <ol class="clean">
+                <li>O paciente está em acidose ou alcalose?</li>
+                <li>O distúrbio é metabólico, respiratório ou misto?</li>
+                <li>A compensação é adequada?</li>
+                <li>Existe ânion gap aumentado?</li>
+              </ol>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">E responde perguntas de conduta</div>
+              <ol class="clean" start="5">
+                <li>Existe outro distúrbio concomitante?</li>
+                <li>O rim está respondendo?</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O erro mais comum é olhar apenas o pH. Um pH de 7,36 pode ser normal
+          ou pode ser a soma de uma acidose metabólica importante com uma
+          alcalose respiratória. O método evita esse erro.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Objetivos</div>
+          <div class="tag"></div>
+        </div>
+
+        <h2>Objetivos</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-green">
+              <div class="card-title">Cálculo e interpretação</div>
+              <ol class="clean">
+                <li>Interpretar uma gasometria em sequência.</li>
+                <li>Calcular a compensação.</li>
+                <li>Calcular o ânion gap.</li>
+                <li>Corrigir o ânion gap pela albumina.</li>
+              </ol>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Diagnóstico e conduta</div>
+              <ol class="clean" start="5">
+                <li>Calcular e interpretar o delta ratio.</li>
+                <li>Entender distúrbio misto e triplo.</li>
+                <li>Aprender sobre ânion gap urinário.</li>
+                <li>Aplicar em LRA, MALA, cirrose e ATR.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A aula será dividida em método, caso principal e casos de contraste. O
+          objetivo é sair com uma sequência reprodutível, não com uma coleção de
+          diagnósticos decorados.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Algoritmo-mãe</div>
+          <div class="tag">Sequência</div>
+        </div>
+
+        <h2>Gasometria</h2>
+
+        <div class="content">
+          <div class="flow">
+            <div class="step">pH</div>
+            <div class="step">HCO<sub>3</sub></div>
+            <div class="step">PaCO<sub>2</sub></div>
+            <div class="step">Compensação</div>
+            <div class="step">AG sérico</div>
+            <div class="step">Albumina</div>
+            <div class="step">Delta</div>
+            <div class="step">Urina</div>
+          </div>
+
+          <div class="grid two">
+            <div class="card">
+              <div class="card-title">Primeiro classificamos</div>
+              <p class="text">
+                O distúrbio é acidótico, alcalótico, metabólico, respiratório ou
+                misto?
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Depois conectamos</div>
+              <p class="text">Qual mecanismo explica ? E agora?</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Esta é a sequência que será repetida nos três casos. Quando o método é
+          fixo, a chance de perder distúrbio misto cai muito.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Tripé inicial</div>
+          <div class="tag">pH, HCO3 e PaCO2</div>
+        </div>
+
+        <h2>O tripé</h2>
+
+        <div class="content">
+          <div class="triad">
+            <div class="card accent-red">
+              <div class="card-title">pH</div>
+              <ul class="clean">
+                <li>Baixo: acidemia.</li>
+                <li>Alto: alcalemia.</li>
+                <li>Normal: pode ser normal ou distúrbio misto.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">HCO<sub>3</sub><sup>-</sup></div>
+              <ul class="clean">
+                <li>Baixo: tendência à acidose metabólica.</li>
+                <li>Alto: tendência à alcalose metabólica.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">PaCO<sub>2</sub></div>
+              <ul class="clean">
+                <li>Alta: tendência à acidose respiratória.</li>
+                <li>Baixa: tendência à alcalose respiratória.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O pH mostra o resultado final. O bicarbonato aponta para metabolismo e
+          rim. A PaCO2 aponta para ventilação. A pergunta é se esses componentes
+          explicam o pH ou se há mais de um processo.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Compensação</div>
+          <div class="tag">Acidose metabólica</div>
+        </div>
+
+        <h2>Compensação</h2>
+
+        <div class="content">
+          <div class="formula">
+            PaCO<sub>2</sub> esperada = 1,5 × HCO<sub>3</sub><sup>-</sup> + 8 ±
+            2
+          </div>
+
+          <div class="grid three">
+            <div class="card accent-green">
+              <div class="card-title">Dentro do esperado</div>
+              <p class="text">Compensação respiratória apropriada.</p>
+            </div>
+
+            <div class="card accent-red">
+              <div class="card-title">Maior que o esperado</div>
+              <p class="text">Acidose respiratória</p>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">Menor que o esperado</div>
+              <p class="text">Alcalose respiratória</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Na acidose metabólica, o paciente deveria hiperventilar para reduzir
+          PaCO2. Se a PaCO2 não cai o suficiente, existe componente respiratório
+          acidótico. Se cai demais, existe alcalose respiratória associada.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Ânion gap</div>
+          <div class="tag">AG sérico</div>
+        </div>
+
+        <h2>Ânion gap sérico</h2>
+
+        <div class="content">
+          <div class="formula">
+            AG = Na<sup>+</sup> - (Cl<sup>-</sup> + HCO<sub>3</sub><sup>-</sup>)
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">AG aumentado</div>
+              <p class="text">Acidose metabólica por adição (NOVO) de ácido.</p>
+              <div class="pill-row" style="margin-top: 16px">
+                <span class="pill red">Lactato</span>
+                <span class="pill red">Cetoácidos</span>
+                <span class="pill red">Uremia</span>
+                <span class="pill red">Intoxicações</span>
+              </div>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">AG normal</div>
+              <p class="text">
+                Pensar em acidose metabólica (AUMENTO) hiperclorêmica, perda
+                (REDUÇÃO) de bicarbonato OU defeito tubular.
+              </p>
+              <div class="pill-row" style="margin-top: 16px">
+                <span class="pill green">Diarreia</span>
+                <span class="pill green">ATR</span>
+                <span class="pill green">Carga salina</span>
+                <span class="pill green">Fármacos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O AG responde se há ácido novo na conta. Se está alto, há ânions não
+          mensurados. Se está normal, mas há acidose, o caminho passa por
+          hipercloremia e avaliação urinária.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Albumina</div>
+          <div class="tag">AG corrigido</div>
+        </div>
+
+        <h2>Ânion gap corrigido pela albumina</h2>
+
+        <div class="content">
+          <div class="formula">AG corrigido = AG + 2,5 × (4 - albumina)</div>
+
+          <div class="grid two">
+            <div class="card accent-purple">
+              <div class="card-title">Por que corrigir?</div>
+              <p class="text">
+                A albumina é o principal ânion não mensurado. Quando ela está
+                baixa, o AG medido pode ser subestimado.
+              </p>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Quando lembrar?</div>
+              <ul class="clean">
+                <li>Cirrose.</li>
+                <li>Sepse.</li>
+                <li>Desnutrição.</li>
+                <li>Síndrome nefrótica.</li>
+                <li>Paciente crítico.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statement light">
+            Em cirrótico, AG normal pode ser falso.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Isso será especialmente importante no caso do cirrótico. Se a albumina
+          está baixa, parte do AG desaparece do cálculo, mas a acidose continua
+          existindo.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Delta ratio</div>
+          <div class="tag">Distúrbio metabólico</div>
+        </div>
+
+        <h2>Delta ratio</h2>
+
+        <div class="content">
+          <div class="formula">
+            Delta ratio = (AG - 12) / (24 - HCO<sub>3</sub><sup>-</sup>)
+          </div>
+
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Valor</th>
+                <th>Interpretação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="critical">&lt; 1</td>
+                <td>HAGMA + acidose metabólica hiperclorêmica</td>
+              </tr>
+              <tr>
+                <td>1 a 2</td>
+                <td>HAGMA isolada.</td>
+              </tr>
+              <tr>
+                <td class="critical">&gt; 2</td>
+                <td>
+                  HAGMA + alcalose metabólica associada (OU) HCO3 previamente
+                  elevado.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="statement light">
+            Se o AG sobe muito, mas o HCO<sub>3</sub> cai pouco, algo está
+            segurando o bicarbonato.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O delta ratio compara o quanto o AG subiu com o quanto o bicarbonato
+          caiu. No caso 1, o AG sobe muito e o bicarbonato cai pouco. Isso
+          revela alcalose metabólica concomitante.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Distúrbio triplo</div>
+          <div class="tag">Como reconhecer</div>
+        </div>
+
+        <h2>Quando suspeitar de distúrbio triplo?</h2>
+
+        <div class="content">
+          <div class="grid three">
+            <div class="card accent-red">
+              <div class="card-title">
+                <span class="number">1</span>Distúrbio metabólico principal
+              </div>
+              <p class="text">Exemplo: acidose metabólica com AG aumentado.</p>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">
+                <span class="number">2</span>Outro distúrbio associado
+              </div>
+              <p class="text">Sugerido pelo delta ratio.</p>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">
+                <span class="number">3</span>Distúrbio respiratório
+              </div>
+              <p class="text">PaCO2 fora da compensação esperada.</p>
+            </div>
+          </div>
+
+          <div class="statement">Compensação tem limite.</div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O distúrbio triplo aparece quando temos duas alterações metabólicas em
+          sentidos diferentes e ainda um processo respiratório adicional. O erro
+          é chamar tudo de compensação.
+        </aside>
+      </section>
+
+      <section class="slide dark section">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">MALA e distúrbio triplo</div>
+        </div>
+
+        <div class="content" style="justify-content: center">
+          <h1>Caso 1</h1>
+          <p class="subtitle">
+            Mulher, 76 anos, DM2, polifarmácia, LRA grave, lactato elevado,
+            acidemia e suspeita de MALA.
+          </p>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Este é o caso central da aula. Ele permite aplicar todas as fórmulas e
+          ainda discutir metformina, LRA, lactato, ventilação, bicarbonato e
+          terapia renal substitutiva.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">História clínica</div>
+        </div>
+
+        <h2>Apresentação clínica</h2>
+
+        <div class="content">
+          <div class="grid three">
+            <div class="card accent-blue">
+              <div class="card-title">Identificação</div>
+              <ul class="clean">
+                <li>Mulher, 76 anos.</li>
+                <li>Diabetes mellitus tipo 2.</li>
+                <li>Disfunções crônicas múltiplas.</li>
+                <li>Polifarmácia.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-red">
+              <div class="card-title">Queixa</div>
+              <ul class="clean">
+                <li>Náuseas.</li>
+                <li>Dor abdominal tipo cólica.</li>
+                <li>Fraqueza há poucos dias.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">História recente</div>
+              <ul class="clean">
+                <li>Piora simétrica de edema em pernas.</li>
+                <li>Ganho de 5 kg em 2 semanas.</li>
+                <li>Nega febre, dispneia, disúria ou vômitos em domicílio.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statement light">
+            Sintomas inespecíficos em paciente vulnerável.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Náusea, dor abdominal e fraqueza podem parecer sintomas simples. Mas,
+          no contexto de DM2, polifarmácia, LRA e lactato alto, são pistas de
+          toxicidade metabólica.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">Exame físico</div>
+        </div>
+
+        <h2>Exame físico e volemia</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-green">
+              <div class="card-title">Sinais de estabilidade?</div>
+              <ul class="clean">
+                <li>Afebril.</li>
+                <li>Sem esforço respiratório.</li>
+                <li>PA 137/63 mmHg.</li>
+                <li>FC 83 bpm.</li>
+                <li>FR 18 irpm.</li>
+                <li>SatO2 99% em ar ambiente.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Sinais de volemia?</div>
+              <ul class="clean">
+                <li>Mucosas orais ressecadas.</li>
+                <li>Abdome globoso e doloroso à palpação profunda.</li>
+                <li>Edema discreto em membros inferiores.</li>
+                <li>Ganho ponderal recente.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statement">
+            Volemia periférica não é sinônimo de perfusão renal.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A paciente tem edema, mas também mucosas ressecadas. Não devemos
+          simplificar como hipervolemia pura ou hipovolemia pura. O rim pode
+          estar percebendo baixo volume arterial efetivo.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">MUC</div>
+        </div>
+
+        <h2>Medicamentos de uso contínuo</h2>
+
+        <div class="content">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Fármaco</th>
+                <th>Risco no caso</th>
+                <th>Raciocínio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Metformina</td>
+                <td class="critical">Acidose lática em contexto de LRA</td>
+                <td>Menor eliminação renal favorece acúmulo.</td>
+              </tr>
+              <tr>
+                <td>Dapagliflozina</td>
+                <td>Natriurese e baixo volume efetivo</td>
+                <td>
+                  Pode contribuir para depleção de volume e isso que vai
+                  confundir FeNa.
+                </td>
+              </tr>
+              <tr>
+                <td>Losartana</td>
+                <td>Redução da pressão intraglomerular</td>
+                <td>Mais relevante em hipoperfusão renal.</td>
+              </tr>
+              <tr>
+                <td>Espironolactona</td>
+                <td>Risco hidroeletrolítico</td>
+                <td>Interfere no eixo mineralocorticoide.</td>
+              </tr>
+              <tr>
+                <td>Diurético de alça, se em uso</td>
+                <td>Hipocloremia e viés na FeNa</td>
+                <td>Aumenta natriurese mesmo com baixo volume.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A prescrição conta parte da fisiopatologia. Metformina explica risco
+          de lactato. SGLT2 e diurético confundem a FeNa. Bloqueio do SRAA reduz
+          reserva hemodinâmica glomerular.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">Laboratório</div>
+        </div>
+
+        <h2>Olhando o conjunto</h2>
+
+        <div class="content">
+          <div class="grid three">
+            <div class="card accent-red">
+              <div class="card-title">Plasma</div>
+              <ul class="clean list-tight">
+                <li>Hb 10,4 g/dL.</li>
+                <li>Glicemia <span class="highlight">51 mg/dL</span>.</li>
+                <li>Na 131 mEq/L.</li>
+                <li>K 4,7 mEq/L.</li>
+                <li>Cl <span class="highlight">80 mEq/L</span>.</li>
+                <li>HCO3 22 mmol/L.</li>
+                <li>Cr <span class="highlight">7,66 mg/dL</span>.</li>
+                <li>Lactato <span class="highlight">7,7 mmol/L</span>.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">Gasometria</div>
+              <ul class="clean">
+                <li>pH <span class="highlight">7,17</span>.</li>
+                <li>PaCO2 <span class="highlight">57 mmHg</span>.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">Urina</div>
+              <ul class="clean">
+                <li>Na urinário 42 mEq/L.</li>
+                <li>Cl urinário 15 mEq/L.</li>
+                <li>Creatinina urinária 65 mg/dL.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statement light">
+            Cr alta + lactato alto + pH baixo + PaCO2 alta + Cl baixo
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O bicarbonato de 22 pode enganar, mas o pH é 7,17 e o lactato é 7,7. A
+          PaCO2 de 57 é inadequada para uma acidose metabólica. O cloro de 80
+          sugere alcalose metabólica concomitante.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">FeNa</div>
+        </div>
+
+        <h2>Fração de excreção de sódio</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">
+              FeNa = [(NaU × CrS) / (NaS × CrU)] × 100
+            </div>
+            <div class="calc-line">FeNa = [(42 × 7,66) / (131 × 65)] × 100</div>
+            <div class="calc-line">FeNa = <span class="result">3,8%</span></div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Interpretação</div>
+              <p class="text">FeNa maior que 1% sugere lesão renal.</p>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Ressalva</div>
+              <p class="text">
+                Diurético e SGLT2 podem elevar a FeNa artificialmente
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O cálculo dá 3,8%. Isso sugere lesão intrínseca pela regra clássica.
+          Mas não podemos interpretar isoladamente, porque furosemida e
+          dapagliflozina aumentam excreção de sódio.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">AG</div>
+        </div>
+
+        <h2>Ânion gap</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">AG = Na - (Cl + HCO3)</div>
+            <div class="calc-line">AG = 131 - (80 + 22)</div>
+            <div class="calc-line">AG = 131 - 102</div>
+            <div class="calc-line">
+              AG = <span class="result">29 mEq/L</span>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Diagnóstico</div>
+              <p class="text">Acidose metabólica com ânion gap aumentado.</p>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">Contexto</div>
+              <p class="text">
+                AG 29 + lactato 7,7 + LRA + metformina = suspeita forte de MALA.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O AG está alto. A principal explicação laboratorial imediata é o
+          lactato. O contexto de metformina e LRA torna MALA uma hipótese
+          central.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">Delta ratio</div>
+        </div>
+
+        <h2>Delta ratio</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">
+              Delta AG = 29 - 12 = <span class="result">17</span>
+            </div>
+            <div class="calc-line">
+              Delta HCO3 = 24 - 22 = <span class="result">2</span>
+            </div>
+            <div class="calc-line">
+              Delta ratio = 17 / 2 = <span class="result">8,5</span>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-purple">
+              <div class="card-title">Interpretação</div>
+              <p class="text">
+                Delta ratio maior que 2 sugere alcalose metabólica.
+              </p>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Pistas</div>
+              <ul class="clean">
+                <li>Hipocloremia importante.</li>
+                <li>Diurético.</li>
+                <li>Cl urinário baixo.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O AG subiu muito, mas o bicarbonato caiu pouco. Isso é a assinatura de
+          uma alcalose metabólica concomitante, provavelmente hipoclorêmica e
+          associada a diurético ou contração de volume efetivo.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">Winter</div>
+        </div>
+
+        <h2>Compensação respiratória</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">PaCO2 esperada = 1,5 × 22 + 8 ± 2</div>
+            <div class="calc-line">PaCO2 esperada = 33 + 8 ± 2</div>
+            <div class="calc-line">
+              PaCO2 esperada = <span class="result">41 ± 2</span>
+            </div>
+            <div class="calc-line">
+              Faixa esperada = <span class="result">39 a 43 mmHg</span>
+            </div>
+            <div class="calc-line">
+              PaCO2 real = <span class="result">57 mmHg</span>
+            </div>
+          </div>
+
+          <div class="statement">
+            PaCO2 real acima do esperado = acidose respiratória
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Ela deveria hiperventilar. A PaCO2 esperada seria 39 a 43. O valor
+          real é 57. Isso é retenção de CO2. Não é compensação.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 1</div>
+          <div class="tag">Fechamento</div>
+        </div>
+
+        <h2>Diagnóstico ácido-base</h2>
+
+        <div class="content">
+          <div class="grid three">
+            <div class="card accent-red">
+              <div class="card-title">1. HAGMA</div>
+              <p class="text">AG 29 e lactato 7,7.</p>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">2. Alcalose metabólica</div>
+              <p class="text">Delta ratio 8,5, Cl 80 e Cl urinário 15.</p>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">3. Acidose respiratória</div>
+              <p class="text">PaCO2 real 57, esperada 39 a 43.</p>
+            </div>
+          </div>
+
+          <div class="statement">
+            Distúrbio triplo em paciente com LRA grave e suspeita de MALA.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Este é o diagnóstico ácido-base final: acidose metabólica com AG
+          aumentado, alcalose metabólica concomitante e acidose respiratória
+          associada.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">MALA</div>
+          <div class="tag">Definição</div>
+        </div>
+
+        <h2>O que significa MALA?</h2>
+
+        <div class="content">
+          <div class="statement light">
+            MALA = Metformin-Associated Lactic Acidosis
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-purple">
+              <div class="card-title">Padrão do caso</div>
+              <ul class="clean">
+                <li>Uso de metformina.</li>
+                <li>LRA grave.</li>
+                <li>pH 7,17.</li>
+                <li>Lactato 7,7 mmol/L.</li>
+                <li>AG 29.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A metformina não causa esse quadro sozinha na maioria das vezes. Ela
+          se torna problemática quando há LRA, hipóxia, choque, sepse ou outro
+          gatilho que aumente lactato ou reduza eliminação.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">MALA</div>
+          <div class="tag">Fisiopatologia</div>
+        </div>
+
+        <h2>Metformina, mitocôndria e lactato</h2>
+
+        <div class="content">
+          <div class="flow">
+            <div class="step">LRA</div>
+            <div class="step">Acúmulo de metformina</div>
+            <div class="step">Complexo I mitocondrial</div>
+            <div class="step">Menos ATP aeróbico</div>
+            <div class="step">Piruvato vira lactato</div>
+            <div class="step">HAGMA</div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Efeito metabólico</div>
+              <ul class="clean">
+                <li>Inibe o Complexo I mitocondrial.</li>
+                <li>Aumenta relação NADH/NAD+.</li>
+                <li>Favorece conversão de piruvato em lactato.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Efeito glicêmico</div>
+              <ul class="clean">
+                <li>Reduz gliconeogênese hepática.</li>
+                <li>Pode contribuir para hipoglicemia.</li>
+                <li>No caso: glicemia 51 mg/dL.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A metformina acumulada interfere na fosforilação oxidativa. O piruvato
+          é desviado para lactato. Além disso, a inibição da gliconeogênese
+          ajuda a explicar a hipoglicemia.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">MALA</div>
+          <div class="tag">Farmacocinética</div>
+        </div>
+
+        <h2>Por que a metformina é dialisável?</h2>
+
+        <div class="content">
+          <div class="grid three">
+            <div class="card accent-green">
+              <div class="card-title">Pequena molécula</div>
+              <p class="text">
+                Baixo peso molecular favorece passagem pelo filtro.
+              </p>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">Baixa ligação proteica</div>
+              <p class="text">
+                Fração livre elevada facilita remoção extracorpórea.
+              </p>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">Eliminação renal</div>
+              <p class="text">A LRA reduz clearance e permite acúmulo.</p>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-purple">
+              <div class="card-title">O problema</div>
+              <p class="text">
+                Grande volume de distribuição, com acúmulo intracelular e em
+                eritrócitos.
+              </p>
+            </div>
+
+            <div class="card accent-red">
+              <div class="card-title">Fenômeno de rebote</div>
+              <p class="text">
+                A HD limpa o plasma rapidamente. Depois, a metformina sai dos
+                tecidos de volta para o sangue.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A metformina é removida por diálise, mas o grande volume de
+          distribuição gera rebote. Isso justifica vigilância prolongada e, em
+          casos graves, terapia contínua ou sessões repetidas.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">MALA</div>
+          <div class="tag">TRS</div>
+        </div>
+
+        <h2>Tratamento e terapia renal substitutiva</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Condutas</div>
+              <ol class="clean">
+                <li>Suspender metformina.</li>
+                <li>Suspender SGLT2 e nefrotóxicos.</li>
+                <li>Corrigir hipoglicemia.</li>
+                <li>Monitorar gasometria, lactato, eletrólitos e diurese.</li>
+                <li>Avaliar ventilação.</li>
+              </ol>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">TRS</div>
+              <ol class="clean">
+                <li>HD intermitente para clearance rápido.</li>
+                <li>
+                  Terapia contínua/prolongada (diante do risco de rebote).
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Bicarbonato isolado não resolve MALA. A estratégia é suspender a
+          droga, tratar suporte, avaliar ventilação e remover metformina quando
+          houver indicação.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Bicarbonato</div>
+          <div class="tag">Armadilha</div>
+        </div>
+
+        <h2>Bicarbonato: quando ajuda e quando atrapalha</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-green">
+              <div class="card-title">Pode ajudar</div>
+              <ul class="clean">
+                <li>Acidemia grave.</li>
+                <li>Hipercalemia ameaçadora a vida.</li>
+                <li>LRA avançada com acidose metabólica importante.</li>
+                <li>ATR (com atenção ao potássio).</li>
+                <li>Ponte para dialise.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-red">
+              <div class="card-title">Pode atrapalhar</div>
+              <ul class="clean">
+                <li>Gera CO2.</li>
+                <li>Piora acidose intracelular (ventilação inadequada).</li>
+                <li>Piora hipocalemia.</li>
+                <li>Reduz cálcio ionizado.</li>
+                <li>Aumenta sódio e volume.</li>
+                <li>Pode precipitar alcalemia em distúrbio misto.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          No caso 1 havia acidose respiratória associada. Se eu dou bicarbonato
+          sem resolver ventilação, aumento geração de CO2 e posso piorar a
+          situação. No caso 3, veremos que a hipocalemia muda a prioridade.
+        </aside>
+      </section>
+
+      <section class="slide dark section">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Cirrose, sepse e LRA</div>
+        </div>
+
+        <div class="content" style="justify-content: center">
+          <h1>Caso 2</h1>
+          <p class="subtitle">
+            Homem, 37 anos, cirrose alcoólica grave, PBE, pneumonia lobar,
+            sepse, ascite tensa e LRA oligúrica.
+          </p>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Este caso serve como contraste. O pH quase normal esconde distúrbios
+          simultâneos. Além disso, introduz o dilema NTA séptica versus HRS-AKI.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Apresentação</div>
+        </div>
+
+        <h2>Cirrótico séptico com LRA</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Quadro clínico</div>
+              <ul class="clean">
+                <li>Cirrose alcoólica grave.</li>
+                <li>PBE.</li>
+                <li>Pneumonia lobar.</li>
+                <li>Estado séptico agudo.</li>
+                <li>Taquipneia, taquicardia e hipotensão.</li>
+                <li>Ascite volumosa tensa.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">Evolução renal</div>
+              <ul class="clean">
+                <li>Oligúria progressiva.</li>
+                <li>Rápida piora da função renal.</li>
+                <li>Refratariedade a altas doses de diuréticos.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Em cirrose, o paciente pode estar cheio de líquido no abdome e no
+          subcutâneo, mas com baixo volume arterial efetivo. O rim recebe sinal
+          de hipoperfusão.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Laboratório</div>
+        </div>
+
+        <h2>Gasometria e eletrólitos</h2>
+
+        <div class="content">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Parâmetro</th>
+                <th>Resultado</th>
+                <th>Interpretação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ureia / Creatinina</td>
+                <td class="critical">150 / 3,6</td>
+                <td>LRA grave com azotemia.</td>
+              </tr>
+              <tr>
+                <td>Na / K</td>
+                <td>138 / 4,5</td>
+                <td>Sem hipercalemia.</td>
+              </tr>
+              <tr>
+                <td>Cl</td>
+                <td>96</td>
+                <td>Hipocloremia leve.</td>
+              </tr>
+              <tr>
+                <td>HCO3</td>
+                <td class="critical">20</td>
+                <td>Componente metabólico acidótico.</td>
+              </tr>
+              <tr>
+                <td>pH</td>
+                <td>7,36</td>
+                <td>pH deceptivamente normal.</td>
+              </tr>
+              <tr>
+                <td>PaCO2</td>
+                <td class="critical">32</td>
+                <td>Hipocapnia.</td>
+              </tr>
+              <tr>
+                <td>PaO2 / SatO2</td>
+                <td class="critical">58 / 89%</td>
+                <td>Insuficiência respiratória hipoxêmica.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O pH de 7,36 não deve tranquilizar. O bicarbonato está baixo, a PaCO2
+          está baixa e há hipoxemia. Vamos calcular.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Cálculo</div>
+        </div>
+
+        <h2>AG e compensação</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Ânion gap</div>
+              <div class="calc-stack">
+                <div class="calc-line">AG = 138 - (96 + 20)</div>
+                <div class="calc-line">
+                  AG = <span class="result">22 mEq/L</span>
+                </div>
+              </div>
+              <p class="text" style="margin-top: 16px">
+                Acidose metabólica com AG aumentado.
+              </p>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">Winter</div>
+              <div class="calc-stack">
+                <div class="calc-line">PaCO2 esp. = 1,5 × 20 + 8 ± 2</div>
+                <div class="calc-line">
+                  PaCO2 esp. = <span class="result">36 a 40</span>
+                </div>
+                <div class="calc-line">
+                  PaCO2 real = <span class="result">32</span>
+                </div>
+              </div>
+              <p class="text" style="margin-top: 16px">
+                Alcalose respiratória.
+              </p>
+            </div>
+          </div>
+
+          <div class="statement light">
+            pH 7,36 pode enganar com equilíbrio aparente entre distúrbios
+            opostos.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A PaCO2 está menor que o esperado. Isso não é só compensação, é
+          alcalose respiratória associada, compatível com sepse, pneumonia,
+          hipoxemia e cirrose.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Delta</div>
+        </div>
+
+        <h2>Delta ratio</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">
+              Delta AG = 22 - 12 = <span class="result">10</span>
+            </div>
+            <div class="calc-line">
+              Delta HCO3 = 24 - 20 = <span class="result">4</span>
+            </div>
+            <div class="calc-line">
+              Delta ratio = 10 / 4 = <span class="result">2,5</span>
+            </div>
+          </div>
+
+          <div class="grid three">
+            <div class="card accent-red">
+              <div class="card-title">HAGMA</div>
+              <p class="text">
+                Sepse, hipoperfusão, uremia e possível lactato.
+              </p>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">Alcalose metabólica</div>
+              <p class="text">
+                Delta ratio maior que 2, possivelmente diuréticos e contração de
+                volume efetivo.
+              </p>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">Alcalose respiratória</div>
+              <p class="text">PaCO2 real menor que a esperada.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Temos novamente distúrbio triplo, mas agora o componente respiratório
+          é alcalose respiratória, não acidose respiratória.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Rim na cirrose</div>
+        </div>
+
+        <h2>NTA séptica vs HRS-AKI</h2>
+
+        <div class="content">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Hipótese</th>
+                <th>A favor</th>
+                <th>Cuidado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NTA séptica / hipoperfusional</td>
+                <td>
+                  Sepse, hipotensão, PBE, pneumonia, hipoxemia, oligúria
+                  progressiva.
+                </td>
+                <td>Muito provável enquanto houver choque ou hipoperfusão.</td>
+              </tr>
+              <tr>
+                <td>HRS-AKI</td>
+                <td>
+                  Cirrose grave, ascite, infecção como gatilho, baixo volume
+                  arterial efetivo.
+                </td>
+                <td>choque séptico ativo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A síndrome hepatorrenal é funcional e exige exclusão de outras causas
+          fortes. No paciente séptico hipotenso, NTA e hipoperfusão são
+          diagnósticos obrigatórios.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 2</div>
+          <div class="tag">Conduta</div>
+        </div>
+
+        <h2>Manejo inicial</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Primeiras horas</div>
+              <ol class="clean">
+                <li>Suspender diuréticos e nefrotóxicos.</li>
+                <li>Tratar PBE e pneumonia.</li>
+                <li>Coletar culturas.</li>
+                <li>Monitorar diurese, lactato, gasometria e função renal.</li>
+              </ol>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">Perfusão e albumina</div>
+              <ol class="clean">
+                <li>PBE: albumina 1,5 g/kg no dia 1 e 1 g/kg no dia 3.</li>
+                <li>
+                  Suspeita de HRS-AKI: albumina 1 g/kg/dia, máximo 100 g/dia.
+                </li>
+                <li>Se HRS-AKI provável: albumina + vasoconstrictor.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A estratégia é corrigir gatilho infeccioso e hemodinâmico. A albumina
+          tem papel na PBE e no algoritmo de HRS. Vasoconstrictor entra quando
+          há indicação e ambiente adequado.
+        </aside>
+      </section>
+
+      <section class="slide dark section">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">Ibuprofeno, ATR e hipocalemia</div>
+        </div>
+
+        <div class="content" style="justify-content: center">
+          <h1>Caso 3</h1>
+          <p class="subtitle">
+            Homem, 42 anos, uso elevado de ibuprofeno, LRA, hipocalemia extrema,
+            acidose hiperclorêmica e falência ventilatória.
+          </p>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Este caso mostra o outro lado: acidose metabólica com AG normal. Aqui
+          o raciocínio sai do lactato e vai para hipercloremia, urina e acidose
+          tubular renal.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">Apresentação</div>
+        </div>
+
+        <h2>Fraqueza, hiporreflexia e insuficiência respiratória</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Quadro clínico</div>
+              <ul class="clean">
+                <li>Alteração do estado mental.</li>
+                <li>Dificuldade respiratória grave.</li>
+                <li>Intubação imediata.</li>
+                <li>Fraqueza progressiva há 2 semanas.</li>
+                <li>Hiporreflexia difusa.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Exposição medicamentosa</div>
+              <ul class="clean">
+                <li>Ibuprofeno 800 mg.</li>
+                <li>Uso de múltiplos comprimidos ao dia.</li>
+                <li>Aumento de dose por sintomas gripais.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statement light">
+            Hipocalemia extrema pode simular doença neuromuscular e causar
+            falência ventilatória.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          A fraqueza e a hiporreflexia poderiam lembrar uma síndrome
+          neuromuscular. Mas o potássio de 0,9 muda completamente a prioridade.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">Laboratório</div>
+        </div>
+
+        <h2>Dados</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Séricos</div>
+              <ul class="clean">
+                <li>Na 134 mmol/L.</li>
+                <li>K <span class="highlight">0,9 mmol/L</span>.</li>
+                <li>Cl 109 mmol/L.</li>
+                <li>HCO3 <span class="highlight">12 mmol/L</span>.</li>
+                <li>Cr <span class="highlight">2,7 mg/dL</span>.</li>
+                <li>Lactato 0,7 mmol/L.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-blue">
+              <div class="card-title">Gasometria e urina</div>
+              <ul class="clean">
+                <li>pH <span class="highlight">7,06</span>.</li>
+                <li>PaCO2 <span class="highlight">40 mmHg</span>.</li>
+                <li>PaO2 82 mmHg.</li>
+                <li>SatO2 90%.</li>
+                <li>NaU 31, KU 7, ClU 22.</li>
+                <li>pH urinário 6,0.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="statement">
+            Lactato normal + HCO3 baixo + Cl alto = acidose metabólica
+            hiperclorêmica.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Aqui o lactato não explica a acidose. O cloro está alto e o
+          bicarbonato está baixo. O próximo passo é calcular AG.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">NAGMA</div>
+        </div>
+
+        <h2>AG normal + acidose hiperclorêmica</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">AG = Na - (Cl + HCO3)</div>
+            <div class="calc-line">AG = 134 - (109 + 12)</div>
+            <div class="calc-line">AG = 134 - 121</div>
+            <div class="calc-line">
+              AG = <span class="result">13 mEq/L</span>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-green">
+              <div class="card-title">Diagnóstico</div>
+              <p class="text">
+                Acidose metabólica com ânion gap normal, hiperclorêmica.
+              </p>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">Próxima pergunta</div>
+              <p class="text">O rim está excretando ácido adequadamente?</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          AG normal muda o raciocínio. Agora precisamos diferenciar perda
+          extrarrenal de bicarbonato, como diarreia, de defeito renal, como
+          acidose tubular renal.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">Winter</div>
+        </div>
+
+        <h2>PaCO2 normal pode ser anormal</h2>
+
+        <div class="content">
+          <div class="calc-stack">
+            <div class="calc-line">PaCO2 esperada = 1,5 × 12 + 8 ± 2</div>
+            <div class="calc-line">PaCO2 esperada = 18 + 8 ± 2</div>
+            <div class="calc-line">
+              PaCO2 esperada = <span class="result">24 a 28 mmHg</span>
+            </div>
+            <div class="calc-line">
+              PaCO2 real = <span class="result">40 mmHg</span>
+            </div>
+          </div>
+
+          <div class="statement">
+            PaCO2 real muito acima do esperado = acidose respiratória.
+          </div>
+
+          <div class="card accent-red">
+            <div class="card-title">Explicação</div>
+            <p class="text">
+              Fraqueza muscular respiratória por hipocalemia extrema, em
+              paciente com acidemia.
+            </p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          PaCO2 de 40 seria normal em outra situação, mas aqui é inadequada. Com
+          bicarbonato de 12, a PaCO2 deveria estar muito menor.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Urina</div>
+          <div class="tag">Ânion gap urinário</div>
+        </div>
+
+        <h2>Ânion gap urinário</h2>
+
+        <div class="content">
+          <div class="formula">UAG = NaU + KU - ClU</div>
+
+          <div class="calc-stack">
+            <div class="calc-line">UAG = 31 + 7 - 22</div>
+            <div class="calc-line">
+              UAG = <span class="result">+16 mEq/L</span>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-green">
+              <div class="card-title">UAG negativo</div>
+              <p class="text">
+                Rim excreta NH4 adequadamente. Sugere causa extrarrenal, como a
+                propria diarreia.
+              </p>
+            </div>
+
+            <div class="card accent-red">
+              <div class="card-title">UAG positivo</div>
+              <p class="text">
+                Baixa excreção de NH4. Sugere causa renal, como acidose tubular
+                renal.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Na acidose metabólica, o rim deveria excretar NH4Cl. Se excreta muito
+          NH4Cl, o cloro urinário sobe e o UAG fica negativo. Aqui é positivo,
+          sugerindo falha renal de acidificação.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">Diagnóstico</div>
+        </div>
+
+        <h2>Acidose tubular renal por ibuprofeno</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Achados que favorecem ATR</div>
+              <ul class="clean">
+                <li>Acidose metabólica hiperclorêmica.</li>
+                <li>AG normal.</li>
+                <li>pH urinário 6,0 em acidemia grave.</li>
+                <li>UAG positivo.</li>
+                <li>Hipocalemia extrema.</li>
+                <li>Uso elevado de ibuprofeno.</li>
+              </ul>
+            </div>
+
+            <div class="card accent-purple">
+              <div class="card-title">Diagnóstico sindrômico</div>
+              <p class="text">
+                Acidose tubular renal, provavelmente distal, induzida por
+                ibuprofeno, com hipocalemia grave sintomática e acidose
+                respiratória associada por falência ventilatória.
+              </p>
+            </div>
+          </div>
+
+          <div class="statement light">
+            Acidose com AG normal veja a urina. Urina positiva para falha de
+            acidificação → pensar em ATR.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O pH urinário deveria estar baixo em acidemia grave. Se está 6,0, o
+          rim não acidificou adequadamente. O conjunto favorece ATR.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Caso 3</div>
+          <div class="tag">Conduta</div>
+        </div>
+
+        <h2>Tratamento</h2>
+
+        <div class="content">
+          <div class="grid two">
+            <div class="card accent-red">
+              <div class="card-title">Prioridade</div>
+              <ol class="clean">
+                <li>Suspender ibuprofeno.</li>
+                <li>Monitorização em UTI.</li>
+                <li>ECG contínuo.</li>
+                <li>Reposição agressiva de KCl.</li>
+                <li>Corrigir magnésio se baixo.</li>
+                <li>Ajustar ventilação mecânica.</li>
+              </ol>
+            </div>
+
+            <div class="card accent-amber">
+              <div class="card-title">Cuidado</div>
+              <ol class="clean">
+                <li>Evitar bicarbonato antes de corrigir potássio.</li>
+                <li>
+                  Bicarbonato pode piorar hipocalemia por shift intracelular.
+                </li>
+                <li>Investigar rabdomiólise.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="statement">
+            ATR hipocalêmica grave, primeiro proteja o potássio.
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O número mais urgente é o potássio. Bicarbonato sem estratégia pode
+          empurrar potássio para dentro da célula e agravar o risco arrítmico e
+          muscular.
+        </aside>
+      </section>
+
+      <section class="slide dark section">
+        <div class="topline">
+          <div class="eyebrow">Síntese</div>
+          <div class="tag">Comparação</div>
+        </div>
+
+        <div class="content" style="justify-content: center">
+          <h1>O mesmo método resolve os três casos</h1>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Agora vamos comparar os padrões. O ponto principal é que não decoramos
+          cada caso. Aplicamos o mesmo método.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Comparação</div>
+          <div class="tag">Três padrões</div>
+        </div>
+
+        <h2>Comparando</h2>
+
+        <div class="content">
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>Caso</th>
+                <th>Padrão ácido-base</th>
+                <th>Diagnóstico sindrômico</th>
+                <th>Conduta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Caso 1: MALA</td>
+                <td>HAGMA + alcalose metabólica + acidose respiratória.</td>
+                <td>LRA grave com acidose lática associada à metformina.</td>
+                <td>Suspender droga, suporte, avaliar ventilação e TRS.</td>
+              </tr>
+              <tr>
+                <td>Caso 2: cirrose séptica</td>
+                <td>HAGMA + alcalose metabólica + alcalose respiratória.</td>
+                <td>LRA em cirrótico, NTA séptica vs HRS-AKI.</td>
+                <td>
+                  Antibiótico, albumina, perfusão e vasopressor/vasoconstrictor.
+                </td>
+              </tr>
+              <tr>
+                <td>Caso 3: ibuprofeno</td>
+                <td>NAGMA hiperclorêmica + acidose respiratória.</td>
+                <td>ATR induzida por ibuprofeno com hipocalemia grave.</td>
+                <td>
+                  KCl, Mg, ventilação, suspender AINE, cautela com bicarbonato.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="statement light">O algoritmo é o mais importante.</div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          O primeiro caso tem lactato e metformina. O segundo tem cirrose e
+          sepse. O terceiro tem ibuprofeno e hipocalemia. Mas todos começam pelo
+          mesmo algoritmo.
+        </aside>
+      </section>
+
+      <section class="slide">
+        <div class="topline">
+          <div class="eyebrow">Algoritmo</div>
+        </div>
+
+        <h2>Ao receber uma gasometria</h2>
+
+        <div class="content">
+          <div class="flow">
+            <div class="step">1. pH → acidose?</div>
+            <div class="step">2. HCO3</div>
+            <div class="step">3. PaCO2</div>
+            <div class="step">4. Winter</div>
+            <div class="step">5. AG</div>
+            <div class="step">6. Albumina</div>
+            <div class="step">7. Delta</div>
+            <div class="step">8. UAG</div>
+            <div class="step">9. Conduta</div>
+          </div>
+
+          <div class="grid two">
+            <div class="card accent-blue">
+              <div class="card-title">Perguntas</div>
+              <ol class="clean">
+                <li>O distúrbio primário explica o pH?</li>
+                <li>A PaCO2 está dentro da compensação esperada?</li>
+                <li>O AG está aumentado?</li>
+                <li>O delta sugere outro distúrbio?</li>
+              </ol>
+            </div>
+
+            <div class="card accent-green">
+              <div class="card-title">Se AG normal e HCO3 baixo</div>
+              <ol class="clean">
+                <li>Procure hipercloremia.</li>
+                <li>Pense em diarreia e ATR.</li>
+                <li>Use pH urinário.</li>
+                <li>Calcule UAG.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          <strong>Fala sugerida:</strong>
+          Este slide deve ficar na memória. É o roteiro de beira-leito para não
+          perder distúrbio misto.
+        </aside>
+      </section>
+    </main>
+
+    <div class="controls" aria-hidden="false">
+      <div class="control-group">
+        <button class="btn" id="prevBtn" type="button">← Anterior</button>
+        <button class="btn" id="nextBtn" type="button">Próximo →</button>
+        <button class="btn" id="notesBtn" type="button">Notas: N</button>
+        <button class="btn" id="overviewBtn" type="button">
+          Visão geral: O
+        </button>
+      </div>
+
+      <div class="counter" id="counter">1 / 1</div>
+
+      <div class="control-group">
+        <button class="btn" id="fullBtn" type="button">Tela cheia: F</button>
+        <button class="btn" id="printBtn" type="button">PDF: P</button>
+      </div>
+    </div>
+
+    <script>
+      const deck = document.getElementById("deck");
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const progressBar = document.getElementById("progressBar");
+      const counter = document.getElementById("counter");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const notesBtn = document.getElementById("notesBtn");
+      const overviewBtn = document.getElementById("overviewBtn");
+      const fullBtn = document.getElementById("fullBtn");
+      const printBtn = document.getElementById("printBtn");
+
+      let current = 0;
+      let overview = false;
+
+      function clampIndex(index) {
+        return Math.max(0, Math.min(slides.length - 1, index));
+      }
+
+      function showSlide(index, updateHash = true) {
+        current = clampIndex(index);
+
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
+        });
+
+        const pct = ((current + 1) / slides.length) * 100;
+        progressBar.style.width = pct + "%";
+        counter.textContent = `${current + 1} / ${slides.length}`;
+
+        if (updateHash) {
+          history.replaceState(null, "", `#${current + 1}`);
+        }
+      }
+
+      function next() {
+        if (overview) return;
+        showSlide(current + 1);
+      }
+
+      function prev() {
+        if (overview) return;
+        showSlide(current - 1);
+      }
+
+      function toggleNotes() {
+        document.body.classList.toggle("show-notes");
+      }
+
+      function toggleOverview() {
+        overview = !overview;
+        deck.classList.toggle("overview", overview);
+
+        if (overview) {
+          slides.forEach((slide, i) => {
+            slide.classList.remove("active");
+            slide.onclick = () => {
+              overview = false;
+              deck.classList.remove("overview");
+              slide.onclick = null;
+              showSlide(i);
+            };
+          });
+        } else {
+          slides.forEach((slide) => {
+            slide.onclick = null;
+          });
+          showSlide(current);
+        }
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+
+      function initFromHash() {
+        const raw = window.location.hash.replace("#", "");
+        const n = Number(raw);
+        if (Number.isFinite(n) && n >= 1 && n <= slides.length) {
+          current = n - 1;
+        }
+        showSlide(current, false);
+      }
+
+      prevBtn.addEventListener("click", prev);
+      nextBtn.addEventListener("click", next);
+      notesBtn.addEventListener("click", toggleNotes);
+      overviewBtn.addEventListener("click", toggleOverview);
+      fullBtn.addEventListener("click", toggleFullscreen);
+      printBtn.addEventListener("click", () => window.print());
+
+      document.addEventListener("keydown", (event) => {
+        const key = event.key.toLowerCase();
+
+        if (key === "arrowright" || key === "pagedown" || key === " ") {
+          event.preventDefault();
+          next();
+        }
+
+        if (key === "arrowleft" || key === "pageup" || key === "backspace") {
+          event.preventDefault();
+          prev();
+        }
+
+        if (key === "home") {
+          event.preventDefault();
+          showSlide(0);
+        }
+
+        if (key === "end") {
+          event.preventDefault();
+          showSlide(slides.length - 1);
+        }
+
+        if (key === "n") {
+          event.preventDefault();
+          toggleNotes();
+        }
+
+        if (key === "o") {
+          event.preventDefault();
+          toggleOverview();
+        }
+
+        if (key === "f") {
+          event.preventDefault();
+          toggleFullscreen();
+        }
+
+        if (key === "p") {
+          event.preventDefault();
+          window.print();
+        }
+
+        if (key === "escape" && overview) {
+          event.preventDefault();
+          toggleOverview();
+        }
+      });
+
+      window.addEventListener("hashchange", initFromHash);
+
+      initFromHash();
+    </script>
+  </body>
+</html>
