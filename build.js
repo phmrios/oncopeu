@@ -12,6 +12,8 @@ const IGNORE = new Set([
   "build.js",
   "serve.js",
   "index.html",
+  "gerar-site.command",
+  "publicar.command",
   ".DS_Store",
   "Thumbs.db",
 ]);
