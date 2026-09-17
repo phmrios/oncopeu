@@ -1,6 +1,7 @@
+#!/usr/bin/env node
 // build.js
 // Gera um index.html estático listando os arquivos da pasta atual.
-// Uso: node build.js
+// Uso: ./build.js  (ou node build.js)
 // Requisitos: Node 18+ (fs/promises, etc.)
 
 const fs = require("fs");
@@ -352,7 +353,7 @@ async function main() {
         const iframe = document.createElement('iframe');
         iframe.src = f.name;
         iframe.setAttribute('title', 'Página HTML');
-        iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups allow-same-origin');
+        iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-popups');
         viewer.appendChild(iframe);
       } else if (kind === 'text') {
         // Tenta carregar o texto e exibir
