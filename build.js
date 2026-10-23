@@ -12,6 +12,7 @@ const IGNORE = new Set([
   "serve.js",
   "index.html",
   "robots.txt",
+  "CNAME",
   "publicar.command",
   "AVALIACAO-SITE.md",
   ".DS_Store",

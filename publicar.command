@@ -29,6 +29,10 @@ git commit -m "$msg"
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
 echo
+echo "== Trazendo mudanças feitas direto no GitHub =="
+git pull --rebase origin "$branch"
+
+echo
 echo "== Enviando para origin/$branch =="
 git push origin "$branch"
 
