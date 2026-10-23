@@ -1,8 +1,8 @@
 #!/bin/bash
-# Duplo-clique neste arquivo para:
-#   1) regenerar o index.html (build.js)
+# Único comando do site. Duplo-clique neste arquivo para:
+#   1) gerar o index.html a partir dos arquivos da pasta (build.js)
 #   2) comitar todas as mudanças da pasta
-#   3) enviar (push) para o GitHub
+#   3) enviar (push) para o GitHub, atualizando o site no ar
 set -e
 cd "$(dirname "$0")"
 
