@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Um guia visual do método Anotações por blocos. Aprenda a usar recuo, espaço e palavras para organizar o raciocínio no papel e no tablet.">
+  <meta name="theme-color" content="#f6f4ed">
+  <title>Anotações por blocos | Guia do método</title>
+  <style>
+    :root {
+      --paper: #f6f4ed;
+      --surface: #fffef9;
+      --ink: #253e38;
+      --text: #34413d;
+      --muted: #637069;
+      --line: #d9ddd2;
+      --green: #234f41;
+      --green-soft: #e4ece2;
+      --rust: #9f4d32;
+      --rust-soft: #f2e2d7;
+      --blue: #406b83;
+      --blue-soft: #e5eef1;
+      --gold: #816222;
+      --gold-soft: #f1ead7;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; color: var(--text); background: var(--paper); font: 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+    button, select { font: inherit; }
+    button, a, select, summary { -webkit-tap-highlight-color: transparent; }
+    button, select, summary { cursor: pointer; }
+    a { color: inherit; }
+    button { color: inherit; }
+    a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--rust); outline-offset: 5px; }
+    button:disabled { cursor: default; opacity: .45; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { color: var(--ink); }
+    h1, h2 { font-family: var(--serif); font-weight: 400; }
+    h2 { font-size: clamp(30px, 3.4vw, 45px); line-height: 1.16; letter-spacing: -.035em; }
+    h3 { font-size: 18px; line-height: 1.4; }
+    p + p { margin-top: 14px; }
+    svg { flex: none; }
+    code { font-family: var(--mono); }
+    [hidden] { display: none !important; }
+    .wrap { width: min(1160px, calc(100% - 72px)); margin: 0 auto; }
+    .eyebrow { font: 600 11px/1.5 var(--sans); letter-spacing: .15em; text-transform: uppercase; }
+    .small { font-size: 13px; line-height: 1.6; }
+    .muted { color: var(--muted); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .skip { position: fixed; z-index: 30; top: 8px; left: 8px; padding: 10px 16px; background: var(--ink); color: white; transform: translateY(-160%); }
+    .skip:focus { transform: translateY(0); }
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(246,244,237,.96); border-bottom: 1px solid var(--line); }
+    .topbar-inner { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+    .brand { display: flex; gap: 13px; align-items: center; text-decoration: none; }
+    .brand-icon { width: 34px; height: 37px; color: var(--green); }
+    .brand-name { display: block; color: var(--ink); font: 700 17px/1.2 var(--sans); letter-spacing: -.03em; }
+    .brand-sub { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+    nav { display: flex; gap: 26px; align-items: center; }
+    nav a { text-decoration: none; font-size: 13px; padding: 8px 0; color: var(--muted); border-bottom: 2px solid transparent; white-space: nowrap; }
+    nav a:hover, nav a[aria-current="location"] { color: var(--ink); border-bottom-color: var(--green); }
+    .hero { padding: 77px 0 67px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; }
+    .hero-tag { display: flex; gap: 10px; align-items: center; color: var(--rust); }
+    .hero-tag::before { content: ""; width: 21px; height: 1px; background: currentColor; }
+    h1 { margin: 23px 0 23px; font-size: clamp(43px, 5.25vw, 68px); letter-spacing: -.045em; line-height: 1.07; }
+    h1 em { color: var(--rust); font-weight: 400; }
+    .hero-copy { max-width: 450px; font-size: 17px; color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 29px; }
+    .primary-link { display: inline-flex; align-items: center; gap: 20px; background: var(--green); color: white; text-decoration: none; padding: 12px 20px; border: 1px solid var(--green); border-radius: 5px; font-size: 13px; font-weight: 600; transition: background .15s; }
+    .primary-link:hover { background: #18392f; }
+    .hero-meta { display: flex; gap: 17px; font-size: 11px; color: var(--muted); }
+    .hero-meta span { display: flex; gap: 6px; align-items: center; }
+    .hero-meta i { width: 5px; height: 5px; border-radius: 50%; background: #8d9b86; }
+    .hero-art { position: relative; padding: 29px 0 24px 25px; }
+    .hero-art::before { content: ""; position: absolute; inset: 8px 21px 3px 6px; border: 1px solid #c6cebd; border-radius: 10px; transform: rotate(-5deg); background: #e6eadc; }
+    .mini-sheet { position: relative; background: var(--surface); border: 1px solid #d6d9cb; border-radius: 6px; box-shadow: 0 14px 28px rgba(44,59,42,.06); padding: 32px 29px 27px; }
+    .mini-head { display: flex; justify-content: space-between; gap: 15px; padding-bottom: 17px; border-bottom: 1px solid var(--line); color: var(--muted); }
+    .mini-head .eyebrow { font-size: 9px; letter-spacing: .1em; }
+    .mini-heading { font: 400 22px/1.35 var(--serif); margin: 22px 0 20px; }
+    .mini-lines { position: relative; padding: 4px 0 13px; }
+    .mini-lines::before { content: ""; position: absolute; left: 27px; top: 0; bottom: 0; width: 1px; background: #bbcab4; box-shadow: 28px 0 #c5d5dc, 56px 0 #ddc9b6; }
+    .mini-row { position: relative; display: grid; grid-template-columns: 27px 1fr; gap: 0; padding: 9px 0; border-bottom: 1px solid #e6e8df; font-size: 13px; }
+    .mini-row > :last-child { padding-left: 1px; }
+    .mini-row .mark { text-align: left; color: var(--green); }
+    .mini-row.level2 { margin-left: 28px; }
+    .mini-row.level3 { margin-left: 56px; font-size: 12px; color: var(--muted); }
+    .mini-row strong { font-weight: 650; }
+    .mini-labels { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+    .mini-labels span { font-size: 10px; color: var(--muted); display: inline-flex; gap: 5px; align-items: center; }
+    .dot { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: var(--green); }
+    .dot.blue { background: var(--blue); }
+    .dot.rust { background: var(--rust); }
+    .principle { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .principle p { font-family: var(--serif); font-size: 23px; color: var(--ink); }
+    .principle .small { max-width: 300px; }
+    .section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: 1fr .75fr; gap: 60px; align-items: end; margin-bottom: 36px; }
+    .section-index { color: var(--rust); margin-bottom: 12px; }
+    .section-lead { color: var(--muted); font-size: 15px; }
+    .level-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+    .level-card { padding: 27px; }
+    .level-card + .level-card { border-left: 1px solid var(--line); }
+    .level-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 23px; }
+    .level-number { font: 400 32px/1 var(--serif); color: #7a8873; }
+    .level-chip { border-radius: 4px; padding: 3px 8px; font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; background: var(--green-soft); color: var(--green); }
+    .level-card:nth-child(2) .level-chip { background: var(--blue-soft); color: var(--blue); }
+    .level-card:nth-child(3) .level-chip { background: var(--rust-soft); color: var(--rust); }
+    .level-card h3 { margin-bottom: 10px; }
+    .level-card p { font-size: 14px; color: var(--muted); }
+    .level-example { padding-top: 17px; margin-top: 20px; border-top: 1px solid var(--line); color: var(--ink); font-size: 12px; }
+    .level-example code { font-weight: 600; margin-right: 7px; }
+    .inline-note { display: flex; gap: 14px; align-items: start; font-size: 13px; color: var(--muted); margin-top: 22px; }
+    .inline-note svg { margin-top: 3px; color: var(--rust); }
+    .workbench { background: #e9ecdf; border: 1px solid #d9decd; border-radius: 20px; padding: 22px; }
+    .controls { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding: 0 2px 20px; }
+    .control-label { display: block; margin-bottom: 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: #4f5e51; font-weight: 650; }
+    select { appearance: none; width: 220px; min-height: 42px; color: var(--ink); border: 1px solid #c7cfbe; background: var(--surface); border-radius: 6px; padding: 8px 35px 8px 12px; font-size: 13px; }
+    .select-wrap { position: relative; }
+    .select-wrap svg { position: absolute; right: 12px; top: 14px; pointer-events: none; }
+    .segmented { display: flex; padding: 3px; border: 1px solid #c7cfbe; background: #f0f2e9; border-radius: 7px; gap: 2px; }
+    .segmented button { border: 0; background: transparent; border-radius: 4px; font-size: 12px; padding: 8px 13px; min-height: 34px; }
+    .segmented button[aria-pressed="true"] { background: var(--green); color: white; box-shadow: 0 1px 2px #263a2920; }
+    .workbench-body { display: grid; grid-template-columns: minmax(0, 1fr) 245px; gap: 24px; align-items: start; }
+    .sheet { --indent: 32px; --start: 24px; position: relative; background: var(--surface); padding: 29px 28px 26px; border-radius: 4px; border: 1px solid #d7dacd; box-shadow: 0 6px 18px #34412b07; }
+    .sheet-heading { padding-bottom: 20px; border-bottom: 1px solid #d5daca; }
+    .sheet-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 10px; color: var(--muted); letter-spacing: .06em; }
+    .sheet-top code { font-size: 11px; color: var(--green); }
+    .sheet-title { margin: 10px 0; font: 400 24px/1.25 var(--serif); letter-spacing: -.03em; }
+    .sheet-meta { display: flex; flex-wrap: wrap; gap: 5px 17px; font-size: 10px; color: var(--muted); }
+    .sheet-body { position: relative; padding-top: 17px; }
+    .guide { position: absolute; width: 1px; top: 18px; bottom: 0; pointer-events: none; }
+    .guide-one { left: var(--start); background: #b2c3ad; }
+    .guide-two { left: calc(var(--start) + var(--indent)); background: #bacfd8; }
+    .guide-three { left: calc(var(--start) + 2 * var(--indent)); background: #ddc4b2; }
+    .note-block { position: relative; margin-top: 24px; }
+    .note-block:first-of-type { margin-top: 0; }
+    .note-row { position: relative; display: grid; grid-template-columns: var(--start) minmax(0, 1fr); gap: 0; min-height: 32px; padding: 5px 0; border-bottom: 1px solid #e0e4d9; font-size: 12px; line-height: 22px; transition: background .15s; }
+    .note-row .note-text { padding-left: 1px; overflow-wrap: break-word; }
+    .note-row[data-level="1"] { font-size: 13px; color: var(--green); font-weight: 650; }
+    .note-row[data-level="2"] { padding-left: var(--indent); }
+    .note-row[data-level="3"] { padding-left: calc(2 * var(--indent)); color: #5b655d; font-size: 11px; }
+    .note-mark { font: 500 11px/22px var(--mono); color: var(--green); padding-right: 5px; white-space: nowrap; }
+    .note-row[data-level="1"] .note-mark { font-weight: 700; }
+    .task-mark { width: 24px; padding: 0 4px 0 0; margin: 0; border: 0; background: transparent; text-align: left; font: 600 11px/22px var(--mono); color: var(--green); border-radius: 2px; }
+    .task-mark:hover { background: #dce6d8; }
+    .task-mark[aria-pressed="true"] + .note-text { text-decoration: line-through; color: var(--muted); }
+    .sheet[data-focus="1"] [data-level="1"] { background: var(--green-soft); box-shadow: -6px 0 var(--green); }
+    .sheet[data-focus="2"] [data-level="2"] { background: var(--blue-soft); box-shadow: -6px 0 var(--blue); }
+    .sheet[data-focus="3"] [data-level="3"] { background: var(--rust-soft); box-shadow: -6px 0 var(--rust); }
+    .sheet-summary { border-top: 1px solid #c9d1bd; padding-top: 14px; margin-top: 24px; font-size: 11px; line-height: 1.75; color: #52614f; }
+    .sheet-summary strong { color: var(--green); }
+    .reading-panel { padding: 17px 3px 0 0; }
+    .reading-label { display: flex; align-items: center; gap: 7px; color: #5a6a52; margin-bottom: 16px; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+    .reading-panel h3 { font: 400 25px/1.2 var(--serif); margin-bottom: 13px; }
+    .reading-panel p { font-size: 13px; color: #56634e; }
+    .reading-divider { height: 1px; background: #ccd4bf; margin: 22px 0; }
+    .focus-caption { padding-left: 13px; border-left: 2px solid #91a480; }
+    .focus-caption b { display: block; color: var(--green); font-size: 12px; margin-bottom: 6px; }
+    .focus-caption p { font-size: 12px; }
+    .step-nav { margin-top: 21px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .step-nav button { border: 1px solid #bbc7af; background: transparent; border-radius: 5px; width: 38px; height: 38px; display: grid; place-items: center; }
+    .step-nav button:hover:not(:disabled) { background: #dde4d1; }
+    .step-count { font: 11px/1.5 var(--mono); color: #52614a; }
+    .workbench-note { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 10px; color: #526348; margin: 14px 3px 0; }
+    .moves { display: grid; grid-template-columns: repeat(3,1fr); gap: 29px; }
+    .move { border-top: 2px solid #b8c7ae; padding: 23px 0 0; }
+    .move svg { color: var(--green); margin-bottom: 13px; }
+    .move h3 { margin-bottom: 10px; }
+    .move p { color: var(--muted); font-size: 14px; }
+    .two-rules { margin-top: 34px; padding: 25px 28px; background: #ebece4; border-radius: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .two-rules h3 { font-size: 14px; margin-bottom: 6px; }
+    .two-rules p { color: var(--muted); font-size: 13px; }
+    .wrap-demo { margin-top: 12px; display: grid; grid-template-columns: 20px 1fr; max-width: 320px; font: 12px/1.8 var(--mono); padding: 12px 15px; background: var(--surface); border-radius: 4px; color: var(--green); }
+    .symbol-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 45px; }
+    .symbol-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .symbol-table th { color: var(--muted); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; padding: 0 12px 12px; border-bottom: 1px solid var(--line); }
+    .symbol-table td { padding: 16px 12px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 13px; }
+    .symbol-table td:first-child { width: 78px; font: 600 17px/1.5 var(--mono); color: var(--green); }
+    .symbol-table td strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 3px; }
+    .symbol-table td span { color: var(--muted); }
+    .labels-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 27px; }
+    .labels-panel h3 { font-size: 19px; margin-bottom: 12px; }
+    .labels-panel > p { font-size: 14px; color: var(--muted); }
+    .label-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 19px 0 21px; }
+    .label-list span { display: inline-flex; border: 1px solid #d7ddd0; padding: 4px 9px; font: 11px/1.6 var(--mono); border-radius: 4px; color: var(--green); background: #f6f7f0; }
+    .relation { border-top: 1px solid var(--line); padding-top: 17px; margin-top: 17px; }
+    .relation strong { display: block; color: var(--rust); margin-bottom: 6px; font-size: 12px; }
+    .relation p { font-size: 13px; color: var(--muted); }
+    .lasting { background: var(--green); color: #e5eddf; border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+    .lasting h3 { color: #fffef4; font: 400 29px/1.2 var(--serif); margin-bottom: 16px; }
+    .lasting p { color: #d2dfce; font-size: 14px; }
+    .lasting dl { margin: 0; }
+    .lasting dl > div { display: grid; grid-template-columns: 88px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid #ffffff24; }
+    .lasting dl > div:first-child { padding-top: 0; }
+    .lasting dt { font-size: 12px; color: #b3c8a7; }
+    .lasting dd { margin: 0; color: #eef2e5; font-size: 13px; }
+    .address { background: #ffffff0a; border: 1px solid #ffffff29; border-radius: 8px; padding: 19px 22px; margin-top: 24px; }
+    .address code { display: block; color: #faf8e8; font-size: 25px; letter-spacing: .04em; margin-bottom: 7px; }
+    .address p { font-size: 12px; }
+    .preserve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 30px; }
+    .preserve-grid h3 { font-size: 16px; margin-bottom: 9px; }
+    .preserve-grid p { font-size: 14px; color: var(--muted); }
+    .revision { margin-top: 17px; border-left: 2px solid #b49a7f; padding-left: 14px; color: var(--muted); font-size: 12px; }
+    .revision strong { color: var(--ink); }
+    .routine { display: grid; grid-template-columns: .8fr 1.2fr; gap: 65px; }
+    .routine-title p { margin-top: 18px; color: var(--muted); font-size: 15px; }
+    .routine ol { list-style: none; margin: 0; padding: 0; counter-reset: steps; }
+    .routine li { position: relative; counter-increment: steps; display: grid; grid-template-columns: 32px 1fr; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .routine li:first-child { padding-top: 0; }
+    .routine li::before { content: counter(steps, decimal-leading-zero); font: 12px/1.9 var(--mono); color: var(--rust); }
+    .routine li strong { display: block; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+    .routine li span { color: var(--muted); font-size: 13px; }
+    .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin-top: 38px; }
+    details { border-top: 1px solid var(--line); padding: 15px 0; }
+    summary { color: var(--ink); font-size: 13px; font-weight: 600; padding-right: 10px; }
+    details p { font-size: 13px; color: var(--muted); padding-top: 12px; }
+    .end { display: flex; justify-content: space-between; align-items: center; gap: 22px; padding: 30px 0 35px; font-size: 11px; color: var(--muted); }
+    .end strong { display: block; color: var(--ink); font-size: 12px; margin-bottom: 4px; }
+    .end a { text-underline-offset: 4px; white-space: nowrap; }
+    .no-js { margin: 14px 0; padding: 12px; background: var(--gold-soft); font-size: 13px; }
+    @media (min-width: 1400px) { .wrap { width: 1160px; } }
+    @media (max-width: 1000px) {
+      .wrap { width: calc(100% - 48px); }
+      .hero { gap: 32px; padding: 58px 0; }
+      .hero-art { padding-left: 12px; }
+      .mini-sheet { padding: 25px 21px; }
+      .hero-meta { flex-wrap: wrap; gap: 8px 14px; }
+      .workbench-body { grid-template-columns: minmax(0,1fr) 210px; gap: 20px; }
+      .sheet { padding: 24px 20px; --indent: 28px; }
+      .section-head { gap: 36px; }
+      .level-card { padding: 23px; }
+      .lasting { gap: 30px; padding: 32px; }
+    }
+    @media (max-width: 760px) {
+      html { scroll-padding-top: 126px; }
+      .topbar-inner { min-height: auto; padding: 14px 0 0; flex-wrap: wrap; gap: 8px; }
+      .brand-sub { display: none; }
+      .brand-icon { width: 27px; height: 29px; }
+      .brand-name { font-size: 15px; }
+      nav { width: 100%; gap: 24px; overflow-x: auto; }
+      nav a { font-size: 12px; padding: 8px 0 11px; }
+      .hero { grid-template-columns: 1fr; padding: 45px 0; gap: 32px; }
+      h1 { max-width: 540px; font-size: clamp(45px,9vw,62px); }
+      .hero-copy { max-width: 520px; }
+      .hero-art { width: min(480px,100%); padding: 19px 7px 10px 15px; justify-self: center; }
+      .mini-sheet { padding: 27px; }
+      .principle { align-items: start; flex-direction: column; gap: 9px; }
+      .principle .small { max-width: 100%; }
+      .section { padding: 48px 0; }
+      .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 26px; }
+      .section-lead { max-width: 560px; }
+      .level-grid { grid-template-columns: 1fr; }
+      .level-card { padding: 23px; }
+      .level-card + .level-card { border-left: 0; border-top: 1px solid var(--line); }
+      .level-top { margin-bottom: 10px; }
+      .level-number { font-size: 27px; }
+      .level-example { margin-top: 13px; padding-top: 13px; }
+      .controls { flex-wrap: wrap; gap: 15px; }
+      .control { flex: 1 1 220px; }
+      select { width: 100%; }
+      .segmented button { flex: 1; }
+      .workbench { padding: 17px; }
+      .workbench-body { grid-template-columns: 1fr; gap: 21px; }
+      .reading-panel { padding: 0 3px 3px; }
+      .reading-panel h3 { font-size: 23px; }
+      .reading-label { margin-bottom: 10px; }
+      .reading-divider { margin: 16px 0; }
+      .step-nav { max-width: 240px; }
+      .sheet { --indent: 30px; padding: 25px; }
+      .moves { grid-template-columns: 1fr; gap: 22px; }
+      .move { position: relative; padding: 20px 0 0 51px; }
+      .move svg { position: absolute; left: 0; top: 21px; width: 30px; }
+      .move h3 { font-size: 17px; }
+      .two-rules { padding: 22px; grid-template-columns: 1fr; gap: 24px; }
+      .symbol-layout { grid-template-columns: 1fr; gap: 26px; }
+      .lasting { grid-template-columns: 1fr; gap: 27px; padding: 27px; }
+      .lasting h3 { font-size: 27px; }
+      .address { margin-top: 18px; }
+      .preserve-grid { grid-template-columns: 1fr; gap: 25px; }
+      .routine { grid-template-columns: 1fr; gap: 27px; }
+      .faq { grid-template-columns: 1fr; margin-top: 30px; }
+    }
+    @media (max-width: 420px) {
+      .wrap { width: calc(100% - 32px); }
+      nav { gap: 20px; }
+      .hero { padding-top: 34px; }
+      .hero-copy { font-size: 16px; }
+      .hero-actions { align-items: start; flex-direction: column; gap: 14px; }
+      .hero-meta { gap: 18px; }
+      .mini-sheet { padding: 22px 17px; }
+      .mini-heading { font-size: 21px; }
+      .mini-row { font-size: 12px; }
+      .mini-row.level3 { font-size: 11px; }
+      .mini-labels { gap: 11px; }
+      .workbench { padding: 12px; border-radius: 13px; }
+      .sheet { --indent: 23px; --start: 23px; padding: 21px 13px; }
+      .sheet-title { font-size: 23px; }
+      .note-row { font-size: 11px; }
+      .note-row[data-level="1"] { font-size: 12px; }
+      .note-row[data-level="3"] { font-size: 11px; }
+      .controls { padding: 0 0 15px; }
+      .segmented button { padding: 8px 6px; }
+      .principle p { font-size: 22px; }
+      .lasting { padding: 23px; }
+      .lasting dl > div { grid-template-columns: 72px 1fr; gap: 10px; }
+      .end { align-items: start; flex-direction: column; gap: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
+    @media print {
+      body { background: white; font-size: 11pt; }
+      .wrap { width: 100%; }
+      .topbar, .hero-actions, .hero-art, .controls, .reading-panel, .workbench-note, .skip, .end a { display: none; }
+      .hero { display: block; padding: 0 0 20px; }
+      h1 { font-size: 33pt; }
+      .hero-copy { max-width: 100%; font-size: 12pt; }
+      .section { padding: 25px 0; }
+      .section-head { gap: 25px; margin-bottom: 20px; }
+      h2 { font-size: 24pt; }
+      .workbench { border: 0; background: white; padding: 0; }
+      .workbench-body { display: block; }
+      .sheet { max-width: 650px; margin: auto; break-inside: avoid; box-shadow: none; }
+      .sheet [hidden] { display: block !important; }
+      .sheet[data-focus] .note-row { box-shadow: none; background: transparent; }
+      .lasting { background: white; border: 1px solid #bbb; color: #222; }
+      .lasting h3, .lasting p, .lasting dt, .lasting dd, .address code { color: #222; }
+      .lasting dl > div, .address { border-color: #bbb; }
+      .level-card, .move, .two-rules, .labels-panel, .lasting, .preserve-grid, .routine { break-inside: avoid; }
+      details p { display: block; }
+      .end { padding-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#conteudo">Ir para o conteúdo</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#inicio" aria-label="Anotações por blocos, início">
+        <svg class="brand-icon" viewBox="0 0 34 37" fill="none" aria-hidden="true"><rect x="1" y="1" width="31" height="35" rx="4" stroke="currentColor" stroke-width="1.4"/><path d="M7 10h17M11 18h13M15 26h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="18" r="1" fill="currentColor"/><circle cx="11" cy="26" r="1" fill="currentColor"/></svg>
+        <span><span class="brand-name">Anotações por blocos</span><span class="brand-sub">Guia do método · Versão 1.0</span></span>
+      </a>
+      <nav aria-label="Seções do guia">
+        <a href="#estrutura">Estrutura</a><a href="#exemplo">Exemplo</a><a href="#regras">Regras</a><a href="#memoria">Revisão</a><a href="#comecar">Comece aqui</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo" class="wrap">
+    <section class="hero" id="inicio" aria-labelledby="titulo">
+      <div>
+        <p class="eyebrow hero-tag">Papel, tablet e raciocínio</p>
+        <h1 id="titulo">Um lugar para<br>cada <em>pensamento.</em></h1>
+        <p class="hero-copy">Um método para organizar ideias à mão e entender suas notas depois. Use três níveis, espaços claros e palavras que explicam as relações.</p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#exemplo">Explore uma anotação <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <div class="hero-meta"><span><i></i>Três níveis</span><span><i></i>Quatro símbolos</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="A estrutura: bloco, ideia e detalhe">
+        <div class="mini-sheet">
+          <div class="mini-head"><span class="eyebrow">Anatomia de uma nota</span><span class="eyebrow">Três níveis</span></div>
+          <p class="mini-heading">Como organizar uma ideia?</p>
+          <div class="mini-lines">
+            <div class="mini-row"><span class="mark">1.</span><strong>Defina o assunto</strong></div>
+            <div class="mini-row level2"><span class="mark">-</span><span>Escreva uma ideia por item.</span></div>
+            <div class="mini-row level3"><span></span><span>Motivo: facilitar a releitura.</span></div>
+            <div class="mini-row level2"><span class="mark">?</span><span>O que falta esclarecer?</span></div>
+          </div>
+          <div class="mini-labels"><span><i class="dot"></i>Bloco</span><span><i class="dot blue"></i>Ideia</span><span><i class="dot rust"></i>Detalhe</span></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="principle" aria-label="Princípio do método">
+      <p>A posição organiza.<br>As palavras preservam o sentido.</p>
+      <span class="small muted">O recuo mostra a estrutura. O texto explica o que cada informação significa.</span>
+    </aside>
+
+    <section class="section" id="estrutura" aria-labelledby="estrutura-titulo">
+      <div class="section-head">
+        <div><p class="eyebrow section-index">01 / A estrutura</p><h2 id="estrutura-titulo">Três posições.<br>Uma relação clara.</h2></div>
+        <p class="section-lead">Cada posição tem uma função. No papel, use os três guias com 1 cm entre eles. Na tela, o desenho adapta essa distância para facilitar a leitura.</p>
+      </div>
+      <div class="level-grid">
+        <article class="level-card"><div class="level-top"><span class="level-number">01</span><span class="level-chip">Bloco</span></div><h3>Qual é o assunto?</h3><p>Escreva um número e um título curto. Um bloco reúne um conjunto de ideias sobre o mesmo ponto.</p><div class="level-example"><code>1.</code> O que observei</div></article>
+        <article class="level-card"><div class="level-top"><span class="level-number">02</span><span class="level-chip">Ideia</span></div><h3>O que você quer registrar?</h3><p>Avance um nível. Escreva uma informação, hipótese, decisão, dúvida ou ação. Use um item para cada ideia principal.</p><div class="level-example"><code>-</code> Deixei três textos incompletos.</div></article>
+        <article class="level-card"><div class="level-top"><span class="level-number">03</span><span class="level-chip">Detalhe</span></div><h3>O que explica essa ideia?</h3><p>Avance mais um nível. Acrescente contexto, motivo, exemplo, condição ou limite. Use apenas o que o sentido exigir.</p><div class="level-example">Contexto: troquei de leitura.</div></article>
+      </div>
+      <p class="inline-note"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.3"/><path d="M10 9v5m0-8v1" stroke="currentColor" stroke-width="1.5"/></svg><span><strong>Os guias marcam o início do texto.</strong> O número e os símbolos ficam antes desse ponto. Assim, textos do mesmo nível mantêm o alinhamento.</span></p>
+    </section>
+
+    <section class="section" id="exemplo" aria-labelledby="exemplo-titulo">
+      <div class="section-head">
+        <div><p class="eyebrow section-index">02 / O método na folha</p><h2 id="exemplo-titulo">Veja o raciocínio<br>ocupar a página.</h2></div>
+        <p class="section-lead">Escolha uma etapa para ver a ordem de escrita. Depois, destaque um nível para examinar a estrutura. O exemplo é fictício.</p>
+      </div>
+      <noscript><p class="no-js">A página completa aparece abaixo. Ative o JavaScript do navegador para usar os controles do exemplo.</p></noscript>
+      <div class="workbench">
+        <div class="controls" id="example-controls">
+          <div class="control"><label class="control-label" for="stage-select">Etapa da escrita</label><div class="select-wrap"><select id="stage-select"><option value="0">Página completa</option><option value="1">1. Identificação</option><option value="2">2. Observação</option><option value="3">3. Hipótese e dúvida</option><option value="4">4. Decisão e tarefa</option><option value="5">5. Síntese</option></select><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5"/></svg></div></div>
+          <div class="control"><span class="control-label" id="focus-label">Destacar nível</span><div class="segmented" role="group" aria-labelledby="focus-label"><button type="button" data-focus="all" aria-pressed="true">Todos</button><button type="button" data-focus="1" aria-pressed="false">Blocos</button><button type="button" data-focus="2" aria-pressed="false">Ideias</button><button type="button" data-focus="3" aria-pressed="false">Detalhes</button></div></div>
+        </div>
+        <div class="workbench-body">
+          <article class="sheet" id="example-sheet" data-focus="all" aria-label="Exemplo fictício de uma nota completa">
+            <header class="sheet-heading" data-stage="1"><div class="sheet-top"><span>EXEMPLO FICTÍCIO</span><code>C01-001</code></div><h3 class="sheet-title">Como concluir minhas leituras?</h3><div class="sheet-meta"><span>23/10/2026</span><span>Origem: reflexão pessoal</span></div></header>
+            <div class="sheet-body" id="sheet-body">
+              <span class="guide guide-one" aria-hidden="true"></span><span class="guide guide-two" aria-hidden="true"></span><span class="guide guide-three" aria-hidden="true"></span>
+              <section class="note-block" data-stage="2" aria-label="Bloco 1: observação">
+                <div class="note-row" data-level="1"><span class="note-mark">1.</span><span class="note-text">O que observei</span></div>
+                <div class="note-row" data-level="2"><span class="note-mark">-</span><span class="note-text"><span class="sr-only">Ideia: </span>Iniciei três textos e deixei os três incompletos.</span></div>
+                <div class="note-row" data-level="3"><span></span><span class="note-text"><span class="sr-only">Detalhe: </span>Contexto: troquei de texto antes de terminar o anterior.</span></div>
+              </section>
+              <section class="note-block" data-stage="3" aria-label="Bloco 2: hipótese e dúvida">
+                <div class="note-row" data-level="1"><span class="note-mark">2.</span><span class="note-text">Minha hipótese</span></div>
+                <div class="note-row" data-level="2"><span class="note-mark">-</span><span class="note-text"><span class="sr-only">Ideia: </span>A troca de texto pode ter dificultado a continuidade.</span></div>
+                <div class="note-row" data-level="3"><span></span><span class="note-text"><span class="sr-only">Detalhe: </span>Motivo: interrompi cada leitura para começar outra.</span></div>
+                <div class="note-row" data-level="3"><span></span><span class="note-text"><span class="sr-only">Detalhe: </span>Limite: ainda não comparei com uma leitura contínua.</span></div>
+                <div class="note-row" data-level="2"><span class="note-mark">?</span><span class="note-text"><span class="sr-only">Ideia: </span>A falta de tempo também contribuiu?</span></div>
+              </section>
+              <section class="note-block" data-stage="4" aria-label="Bloco 3: decisão e tarefa">
+                <div class="note-row" data-level="1"><span class="note-mark">3.</span><span class="note-text">Minha decisão</span></div>
+                <div class="note-row" data-level="2"><span class="note-mark">-</span><span class="note-text"><span class="sr-only">Ideia: </span>Manter um texto principal nas próximas três sessões.</span></div>
+                <div class="note-row" data-level="3"><span></span><span class="note-text"><span class="sr-only">Detalhe: </span>Objetivo: testar se consigo concluí-lo antes de escolher outro.</span></div>
+                <div class="note-row" data-level="3"><span></span><span class="note-text"><span class="sr-only">Detalhe: </span>Reavaliar se: eu continuar sem avançar após três sessões.</span></div>
+                <div class="note-row" data-level="2"><button class="task-mark" id="demo-task" type="button" aria-pressed="false" aria-label="Marcar a tarefa do exemplo como concluída">[ ]</button><span class="note-text"><span class="sr-only">Ideia: </span>Escolher o texto para o teste.</span></div>
+              </section>
+            </div>
+            <footer class="sheet-summary" data-stage="5"><strong>Síntese:</strong> vou testar a continuidade de uma leitura; a explicação ainda é provisória.</footer>
+          </article>
+          <aside class="reading-panel" aria-labelledby="stage-title">
+            <span class="reading-label"><i class="dot"></i>O que observar</span>
+            <h3 id="stage-title">O raciocínio completo</h3>
+            <p id="stage-copy">A nota distingue o que foi observado, a hipótese e a decisão. Esses títulos pertencem ao exemplo. Em outra nota, escolha os títulos que o assunto exigir.</p>
+            <div class="reading-divider"></div>
+            <div class="focus-caption"><b id="focus-title">Posição e função</b><p id="focus-copy">A posição define o nível. O símbolo indica a função. Uma dúvida pode ocupar o nível da ideia ou do detalhe.</p></div>
+            <div class="reading-divider"></div>
+            <p class="small" id="stage-tip">Motivo e Limite explicam a mesma hipótese. O segundo detalhe não passa a depender do primeiro.</p>
+            <div class="step-nav"><button type="button" id="prev-stage" aria-label="Etapa anterior" disabled><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16 10H4m5-5-5 5 5 5" stroke="currentColor" stroke-width="1.5"/></svg></button><span class="step-count" id="step-count">VISÃO COMPLETA</span><button type="button" id="next-stage" aria-label="Iniciar passo a passo"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+          </aside>
+        </div>
+        <div class="workbench-note"><span>Toque em [ ] para testar a conclusão da tarefa do exemplo.</span><span>Os recuos da tela são ilustrativos.</span></div>
+        <span class="sr-only" role="status" aria-live="polite" id="example-status"></span>
+      </div>
+    </section>
+
+    <section class="section" id="regras" aria-labelledby="regras-titulo">
+      <div class="section-head"><div><p class="eyebrow section-index">03 / O gesto de escrever</p><h2 id="regras-titulo">Três movimentos<br>organizam a nota.</h2></div><p class="section-lead">Use a mesma lógica no caderno e no tablet. Mude a posição do texto quando a relação entre os itens mudar.</p></div>
+      <div class="moves">
+        <article class="move"><svg width="39" height="34" viewBox="0 0 39 34" fill="none" aria-hidden="true"><path d="M6 6h27M6 17h27M6 28h27" stroke="currentColor" stroke-width="1.5"/><path d="M2 3v28" stroke="currentColor" stroke-width="1" opacity=".4"/></svg><h3>Continue no mesmo nível</h3><p>Acrescente outro item com a mesma função estrutural. Duas ideias do bloco ficam alinhadas. Dois detalhes da mesma ideia também.</p></article>
+        <article class="move"><svg width="39" height="34" viewBox="0 0 39 34" fill="none" aria-hidden="true"><path d="M3 6h29M12 18h20M21 30h11M3 15v6h5m4 6v3h5" stroke="currentColor" stroke-width="1.5"/></svg><h3>Avance para explicar</h3><p>Use o nível seguinte para desenvolver o item superior. Um detalhe pertence à ideia pertinente mais recente no nível acima.</p></article>
+        <article class="move"><svg width="39" height="34" viewBox="0 0 39 34" fill="none" aria-hidden="true"><path d="M15 6h18M21 15h12M3 29h30M11 17H3m4-4-4 4 4 4" stroke="currentColor" stroke-width="1.5"/></svg><h3>Retorne para mudar de assunto</h3><p>Deixe uma linha vazia. Volte ao primeiro nível e abra outro bloco numerado. Dê a ele um título que descreva o novo assunto.</p></article>
+      </div>
+      <div class="two-rules"><article><h3>Use o espaço como separação</h3><p>Deixe uma linha vazia entre blocos. Dentro de cada bloco, use linhas consecutivas. Mantenha uma ideia principal por item.</p></article><article><h3>Uma frase pode ocupar mais de uma linha</h3><p>A continuação fica alinhada ao início do texto. Use o mesmo item, sem novo símbolo ou novo recuo.</p><div class="wrap-demo" aria-label="Exemplo de continuação alinhada"><span>-</span><span>Uma ideia que precisa de<br>mais de uma linha mantém<br>o mesmo alinhamento.</span></div></article></div>
+    </section>
+
+    <section class="section" id="simbolos" aria-labelledby="simbolos-titulo">
+      <div class="section-head"><div><p class="eyebrow section-index">04 / A legenda</p><h2 id="simbolos-titulo">Poucos símbolos.<br>Significados estáveis.</h2></div><p class="section-lead">Escolha o símbolo pelo tipo de item. Ele ocupa o lugar antes do texto e não acrescenta um nível à estrutura.</p></div>
+      <div class="symbol-layout">
+        <div><table class="symbol-table"><caption class="sr-only">Símbolos do método e suas funções</caption><thead><tr><th scope="col">Símbolo</th><th scope="col">Quando usar</th></tr></thead><tbody><tr><td><code>-</code></td><td><strong>Ideia ou informação</strong><span>Registre uma afirmação, hipótese ou decisão.</span></td></tr><tr><td><code>?</code></td><td><strong>Dúvida aberta</strong><span>Escreva o que ainda precisa de resposta.</span></td></tr><tr><td><code>[ ]</code></td><td><strong>Ação pendente</strong><span>Descreva uma ação concreta.</span></td></tr><tr><td><code>[x]</code></td><td><strong>Ação concluída</strong><span>Marque a caixa após executar a ação.</span></td></tr></tbody></table><p class="inline-note">Não combine marcadores. A dúvida começa com ?, e a tarefa começa com [ ]. Os detalhes podem ficar sem marcador.</p></div>
+        <aside class="labels-panel"><h3>As palavras explicam a relação.</h3><p>Acrescente um rótulo quando ele ajudar a entender o detalhe. Nenhum destes rótulos é obrigatório.</p><div class="label-list"><span>Contexto:</span><span>Motivo:</span><span>Exemplo:</span><span>Condição:</span><span>Exceção:</span><span>Limite:</span><span>Fonte:</span><span>Reavaliar se:</span></div><p>Prefira relações explícitas. Escreva o motivo, a condição ou a origem. Explique uma abreviação quando seu sentido não for evidente.</p><div class="relation"><strong>Uma regra que evita confusão</strong><p>Vários detalhes podem explicar a mesma ideia. Essa ligação continua até uma nova ideia no nível acima ou um novo bloco. Se a dúvida for sobre um detalhe específico, cite esse detalhe no texto.</p></div></aside>
+      </div>
+    </section>
+
+    <section class="section" id="memoria" aria-labelledby="memoria-titulo">
+      <div class="section-head"><div><p class="eyebrow section-index">05 / O sentido ao longo do tempo</p><h2 id="memoria-titulo">Escreva para<br>o seu futuro leitor.</h2></div><p class="section-lead">Esse leitor será você. A estrutura precisa de contexto para que a nota permaneça compreensível fora do dia em que você a escreveu.</p></div>
+      <div class="lasting"><div><h3>Dê uma identidade à nota.</h3><p>A folha de treino fica livre de títulos impressos. Acrescente a identificação à mão conforme a necessidade da nota.</p><div class="address"><code>C01-001</code><p><strong>C01</strong> identifica o caderno. <strong>001</strong> identifica a página ou a nota. Use códigos diferentes para cadernos diferentes.</p></div></div><dl><div><dt>Título</dt><dd>Use um assunto ou uma pergunta específica.</dd></div><div><dt>Data</dt><dd>Registre quando a nota foi escrita.</dd></div><div><dt>Identificador</dt><dd>Mantenha o código quando copiar ou mover a nota.</dd></div><div><dt>Fonte</dt><dd>Indique a origem. Se as fontes variarem, registre cada uma perto do trecho correspondente.</dd></div><div><dt>Referências</dt><dd>Use o código da outra nota para ligar assuntos ou indicar uma continuação.</dd></div></dl></div>
+      <div class="preserve-grid"><article><h3>Registre conclusões e revisões.</h3><p>Use <strong>Síntese:</strong> se houver uma conclusão. Marque as conclusões provisórias. Quando a interpretação mudar, acrescente uma revisão com data e indique o trecho afetado.</p><div class="revision"><strong>Revisão, 26/10/2026, bloco 2:</strong> a hipótese continua aberta. Ainda preciso separar o efeito da troca de texto do efeito da falta de tempo.<br><span class="small">Exemplo fictício.</span></div></article><article><h3>Garanta que você encontre a nota.</h3><p>Mantenha um índice simples com assunto e identificador. Preserve cópias legíveis e uma cópia de segurança. Na continuação, escreva o código da nota anterior.</p><div class="revision"><strong>Exemplo de índice:</strong><br>Continuidade da leitura · C01-001<br><strong>Exemplo de continuação:</strong><br>Continua em C01-002.</div></article></div>
+    </section>
+
+    <section class="section" id="comecar" aria-labelledby="comecar-titulo">
+      <div class="routine"><div class="routine-title"><p class="eyebrow section-index">06 / Sua próxima página</p><h2 id="comecar-titulo">Comece com<br>um único assunto.</h2><p>Use esta sequência para aplicar o método. Escolha os títulos dos blocos conforme a aula, a leitura, a decisão ou o raciocínio.</p></div><ol><li><div><strong>Identifique a nota.</strong><span>Escreva título, data e código. Acrescente a fonte quando houver.</span></div></li><li><div><strong>Abra o primeiro bloco.</strong><span>Escreva um número e um título curto no primeiro nível.</span></div></li><li><div><strong>Registre a ideia.</strong><span>Avance um nível. Escolha o marcador adequado ao item.</span></div></li><li><div><strong>Explique o que precisa de contexto.</strong><span>Use o terceiro nível para os detalhes da ideia.</span></div></li><li><div><strong>Abra outro bloco quando o assunto mudar.</strong><span>Deixe uma linha vazia e volte ao primeiro nível.</span></div></li><li><div><strong>Releia antes de encerrar.</strong><span>Esclareça relações e abreviações. Acrescente uma síntese se houver conclusão. Inclua a nota no índice.</span></div></li></ol></div>
+      <div class="faq"><details><summary>Os títulos dos blocos são sempre os mesmos?</summary><p>Escolha os títulos conforme o conteúdo. Em uma leitura, você pode usar Ideia central, Argumentos e Dúvidas. Em um plano, pode usar Objetivo, Restrições e Ações. O método mantém a estrutura de bloco, ideia e detalhe.</p></details><details><summary>E se eu precisar de um quarto nível?</summary><p>Use três níveis como padrão. Se um detalhe exigir uma explicação longa, crie outro bloco ou outra nota. Acrescente uma referência para preservar a ligação.</p></details><details><summary>Preciso escrever uma síntese em toda nota?</summary><p>Use a síntese quando houver uma conclusão. Se a nota registrar uma dúvida ou uma observação breve, encerre após o último item necessário.</p></details><details><summary>Como levo o método para o tablet?</summary><p>Use a folha de treino como fundo ou mantenha três posições fixas para o início do texto. Preserve os mesmos símbolos, códigos e regras de recuo do papel.</p></details></div>
+    </section>
+    <footer class="end"><div><strong>Anotações por blocos · Versão 1.0</strong><span>Guia do método definido nesta conversa. Todos os exemplos de leitura são fictícios.</span></div><a href="#inicio">Voltar ao início</a></footer>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const stageSelect = document.getElementById('stage-select');
+      const sheet = document.getElementById('example-sheet');
+      const stageParts = [...sheet.querySelectorAll('[data-stage]')];
+      const status = document.getElementById('example-status');
+      const prev = document.getElementById('prev-stage');
+      const next = document.getElementById('next-stage');
+      const stageTitle = document.getElementById('stage-title');
+      const stageCopy = document.getElementById('stage-copy');
+      const stageTip = document.getElementById('stage-tip');
+      const focusTitle = document.getElementById('focus-title');
+      const focusCopy = document.getElementById('focus-copy');
+      const focusButtons = [...document.querySelectorAll('button[data-focus]')];
+      const stages = [
+        { title: 'O raciocínio completo', copy: 'A nota distingue o que foi observado, a hipótese e a decisão. Esses títulos pertencem ao exemplo. Em outra nota, escolha os títulos que o assunto exigir.', tip: 'Motivo e Limite explicam a mesma hipótese. O segundo detalhe não passa a depender do primeiro.' },
+        { title: 'Antes da primeira ideia', copy: 'O título define a pergunta. A data situa a nota. O código permite encontrar a página e citá-la depois. A origem informa de onde veio o conteúdo.', tip: 'Neste exemplo, a origem é uma reflexão pessoal. Em uma leitura, registre a referência e a página ou seção relevante.' },
+        { title: 'Registre o que observou', copy: 'O número e o título abrem o bloco. A informação ocupa o segundo nível. O contexto fica no terceiro nível, ligado à informação sobre os textos incompletos.', tip: 'O contexto explica a observação. A hipótese sobre a causa aparece no próximo bloco.' },
+        { title: 'Deixe a hipótese explícita', copy: 'A expressão "pode ter" mostra que a explicação é provisória. Motivo e Limite desenvolvem a mesma ideia. A pergunta registra uma dúvida que ainda permanece.', tip: 'Os dois detalhes ficam no mesmo nível. A dúvida volta ao nível da ideia e abre outro item.' },
+        { title: 'Separe decisão de tarefa', copy: 'A decisão define o teste. Os detalhes explicam seu objetivo e a condição para reavaliá-lo. A caixa marca a ação necessária: escolher o texto.', tip: 'Toque na caixa para alternar entre [ ] e [x]. Essa mudança indica a conclusão da ação no exemplo.' },
+        { title: 'Feche sem perder a dúvida', copy: 'A síntese registra o que ficou decidido e preserva o caráter provisório da explicação. Use uma ou duas frases quando houver uma conclusão.', tip: 'A síntese é opcional. Uma nota que apenas registra uma observação ou uma dúvida pode terminar sem ela.' }
+      ];
+      const levels = {
+        all: { title: 'Posição e função', copy: 'A posição define o nível. O símbolo indica a função. Uma dúvida pode ocupar o nível da ideia ou do detalhe.' },
+        '1': { title: 'Nível 1: bloco', copy: 'O número e o título delimitam o assunto. Todos os títulos de bloco começam na primeira guia.' },
+        '2': { title: 'Nível 2: ideia', copy: 'Cada item ocupa o segundo nível. Os símbolos variam, mas o início do texto permanece alinhado.' },
+        '3': { title: 'Nível 3: detalhe', copy: 'O detalhe desenvolve a ideia pertinente no nível acima. Vários detalhes podem se ligar à mesma ideia.' }
+      };
+      const currentStage = () => Number(stageSelect.value);
+      function updateStage(announce = true) {
+        const stage = currentStage();
+        const through = stage === 0 ? 5 : stage;
+        stageParts.forEach(part => { part.hidden = Number(part.dataset.stage) > through; });
+        document.getElementById('sheet-body').hidden = through < 2;
+        stageTitle.textContent = stages[stage].title;
+        stageCopy.textContent = stages[stage].copy;
+        stageTip.textContent = stages[stage].tip;
+        document.getElementById('step-count').textContent = stage === 0 ? 'VISÃO COMPLETA' : 'ETAPA ' + stage + ' DE 5';
+        prev.disabled = stage === 0;
+        next.disabled = stage === 5;
+        next.setAttribute('aria-label', stage === 0 ? 'Iniciar passo a passo' : 'Próxima etapa');
+        prev.setAttribute('aria-label', stage === 1 ? 'Ver a página completa' : 'Etapa anterior');
+        sheet.setAttribute('aria-label', stage === 0 ? 'Exemplo fictício de uma nota completa' : 'Exemplo fictício até a etapa ' + stage);
+        if (announce) status.textContent = stage === 0 ? 'Página completa.' : 'Etapa ' + stage + ' de 5. ' + stages[stage].title;
+      }
+      stageSelect.addEventListener('change', () => updateStage());
+      prev.addEventListener('click', () => { stageSelect.value = String(Math.max(0, currentStage() - 1)); updateStage(); });
+      next.addEventListener('click', () => { stageSelect.value = String(Math.min(5, currentStage() + 1)); updateStage(); });
+      focusButtons.forEach(button => button.addEventListener('click', () => {
+        const level = button.dataset.focus;
+        sheet.dataset.focus = level;
+        focusButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        focusTitle.textContent = levels[level].title;
+        focusCopy.textContent = levels[level].copy;
+        status.textContent = level === 'all' ? 'Todos os níveis sem destaque.' : levels[level].title + ' em destaque nas etapas visíveis.';
+      }));
+      document.getElementById('demo-task').addEventListener('click', event => {
+        const button = event.currentTarget;
+        const complete = button.getAttribute('aria-pressed') !== 'true';
+        button.setAttribute('aria-pressed', String(complete));
+        button.textContent = complete ? '[x]' : '[ ]';
+        button.setAttribute('aria-label', complete ? 'Marcar a tarefa do exemplo como pendente' : 'Marcar a tarefa do exemplo como concluída');
+        status.textContent = complete ? 'A tarefa do exemplo foi marcada como concluída.' : 'A tarefa do exemplo está pendente.';
+      });
+      const navLinks = [...document.querySelectorAll('nav a')];
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          const entry = entries.find(item => item.isIntersecting);
+          if (!entry) return;
+          navLinks.forEach(link => {
+            if (link.hash === '#' + entry.target.id) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          });
+        }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+        navLinks.forEach(link => { const section = document.querySelector(link.hash); if (section) observer.observe(section); });
+      }
+      updateStage(false);
+    })();
+  </script>
+</body>
+</html>
